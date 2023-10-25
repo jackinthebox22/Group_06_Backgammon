@@ -1,7 +1,8 @@
 import java.util.Random
-public class Role{
 
-    public int[] roleDice(){
+public class Roll{
+
+    public int[] rollDice(){
 
         int die1 = random.nextInt(6) + 1;
         int die2 = random.nextInt(6) + 1;
