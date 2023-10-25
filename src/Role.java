@@ -2,7 +2,7 @@ import java.util.Random
 
 public class Roll{
 
-    public int[] rollDice(){
+    public int[] rollDice(){ //Roll not Role u dummy
 
         int die1 = random.nextInt(6) + 1;
         int die2 = random.nextInt(6) + 1;
