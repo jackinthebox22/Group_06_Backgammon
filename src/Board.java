@@ -1,6 +1,6 @@
 public class Board {
 
-    // Initlizes new Board
+    // Initializes new Board
     public Board() {
 
     }
