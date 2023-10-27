@@ -7,7 +7,7 @@ public class Main{
 
         int[] dice = Roll.rollDice(); // rolls dice
 
-        String[] playerNames = PlayerData.getNameFromUser();
+        String[] playerNames = PlayerData.getNamesFromUser();
 
     }
 }
