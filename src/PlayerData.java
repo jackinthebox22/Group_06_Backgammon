@@ -13,6 +13,7 @@ public class PlayerData {
 
     public int getPoints(){return points;}
 
+    // gets the player names from the user
     public static String[] getNamesFromUser() {
         Scanner scanner = new Scanner(System.in);
 
