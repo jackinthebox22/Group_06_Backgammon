@@ -1,7 +1,7 @@
 /**
  * Game of Backgammon
  * @version 1.00 31-10-23
- * @author Jack Caldwell & Pattrick Moxom
+ * @author Jack Caldwell & Patrick Moxom
  */
 
 import java.util.*;
@@ -33,7 +33,7 @@ public class Main{
             dice = Roll.rollDice();
             
             board.displayBoard();
-            System.out.println("Take Your Turn. WORKING COMMANDS: Quit (Q): ");
+            System.out.println("Take Your Turn. ALLOWABLE COMMANDS: Quit (Q): ");
             command = scanner.nextLine().toUpperCase();
         }
 

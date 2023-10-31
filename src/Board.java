@@ -14,17 +14,19 @@ public class Board {
         }
 
         // Starting Spikes
-        spikes[0][0] = new Checker("O", 5);  // Spike 13
-        spikes[0][4] = new Checker("X", 3);  // Spike 17
-        spikes[0][6] = new Checker("X", 5);  // Spike 19
-        spikes[0][11] = new Checker("O", 2); // Spike 24
-        spikes[1][0] = new Checker("X", 5);  // Spike 12
-        spikes[1][4] = new Checker("O", 3);  // Spike 8
-        spikes[1][6] = new Checker("O", 5);  // Spike 6
-        spikes[1][11] = new Checker("X", 2); // Spike 1
+        spikes[0][0] = new Checker("blue", 5);  // Spike 13
+        spikes[0][4] = new Checker("red", 3);  // Spike 17
+        spikes[0][6] = new Checker("red", 5);  // Spike 19
+        spikes[0][11] = new Checker("blue", 2); // Spike 24
+        spikes[1][0] = new Checker("red", 5);  // Spike 12
+        spikes[1][4] = new Checker("blue", 3);  // Spike 8
+        spikes[1][6] = new Checker("blue", 5);  // Spike 6
+        spikes[1][11] = new Checker("red", 2); // Spike 1
     }
     // Displays board to user
     public void displayBoard() {
+        // Initializing reset string to reset the colour output to the terminal
+        String reset = "\u001B[0m";
 
         // Print top of board (12-24)
         System.out.println(" \n————————————————————————————————————————————————————————————————");
@@ -38,13 +40,14 @@ public class Board {
         for (int i = 18; i <= 23; i++) {
             System.out.printf(" %2s |", i + 1); 
         }
+        System.out.print("\u001B[31m" + " red tray" + reset);
 
         // Print 2D array of checkers
         for (int i = 0; i < 2; i++) {
             if (i == 0) {
                 System.out.print("\n");
             }
-            if (i == 1) {
+            else if (i == 1) {
                 System.out.println("————————————————————————————————————————————————————————————————");
             }
             System.out.print("|");
@@ -53,9 +56,9 @@ public class Board {
                     System.out.print("  |");
                 }
                 if (spikes[i][j] != null) {
-                    String checkerSymbol = spikes[i][j].getColor();
+                    String checkerSymbol = spikes[i][j].getColour();
                     int numCheckers = spikes[i][j].getNumCheckers();
-                    System.out.printf("%2s%s |", numCheckers, checkerSymbol); // Print number of checkers and checker symbol
+                    System.out.printf(spikes[i][j].getColourCode() + " %2s " + reset + "|", numCheckers); // Print number of checkers and checker symbol
                 } else {
                     System.out.printf("    |"); // Print only number when there is no checker
                 }
@@ -72,6 +75,7 @@ public class Board {
         for (int i = 5; i >= 0; i--) {
             System.out.printf(" %2s |", i + 1); // Print spike numbers with 2-character width
         }
+        System.out.print("\u001B[34m" + " blue tray" + reset);
 
         System.out.println("\n————————————————————————————————————————————————————————————————\n");
     }

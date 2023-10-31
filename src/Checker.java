@@ -1,14 +1,23 @@
 public class Checker {
-    private String color;
+    private String colour;
     private int numCheckers;
 
-    public Checker(String color, int numCheckers) {
-        this.color = color;
+    public Checker(String colour, int numCheckers) {
+        this.colour = colour;
         this.numCheckers = numCheckers;
     }
 
-    public String getColor() {
-        return color;
+    public String getColour() {
+        return colour;
+    } // if we have getColourCode, is this needed anymore?
+
+    public String getColourCode(){
+        String colourCode;
+
+        if (getColour().equals("blue")) colourCode = "\u001B[34m";
+        else colourCode = "\u001B[31m";
+
+        return colourCode;
     }
 
     public int getNumCheckers() {
@@ -21,6 +30,6 @@ public class Checker {
 
     @Override
     public String toString() {
-        return color;
+        return colour;
     }
 }
