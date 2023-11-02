@@ -77,6 +77,7 @@ public class Board {
         }
         System.out.print("\u001B[34m" + " blue tray" + reset);
 
-        System.out.println("\n————————————————————————————————————————————————————————————————\n");
+        System.out.println("\n————————————————————————————————————————————————————————————————");
+        System.out.println("Bar: \n");   
     }
 }
