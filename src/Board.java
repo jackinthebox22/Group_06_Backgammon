@@ -1,9 +1,9 @@
 public class Board {
 
-    private Checker[][] spikes;
-    private Bar[] bar;
+    public static Checker[][] spikes;
+    public static Bar[] bar;
 
-    public Board() {
+    public static Checker[][] Spikes() {
         // Creates Starting Board
         spikes = new Checker[2][12];
 
@@ -24,13 +24,19 @@ public class Board {
         spikes[1][6] = new Checker("blue", 5);  // Spike 6
         spikes[1][11] = new Checker("red", 2);  // Spike 1
 
+        return spikes;
+    }
+    public static Bar[] Bar(){
         bar = new Bar[2];
 
         bar[0] = new Bar("red", 11);
         bar[1] = new Bar("blue", 0);
+
+        return bar;
     }
+
     // Displays board to user
-    public void displayBoard() {
+    public static void displayBoard(Checker[][] spikes, Bar[] bar) {
         // Initializing reset string to reset the colour output to the terminal
         String reset = "\u001B[0m";
 
@@ -53,7 +59,7 @@ public class Board {
             if (i == 0) {
                 System.out.print("\n");
             }
-            else if (i == 1) {
+            else {
                 System.out.println("————————————————————————————————————————————————————————————————");
             }
             System.out.print("|");
@@ -66,9 +72,8 @@ public class Board {
                     int numCheckers = spikes[i][j].getNumCheckers();
                     System.out.printf(spikes[i][j].getColourCode() + " %2s " + reset + "|", numCheckers); // Print number of checkers and checker symbol
                 } else {
-                    System.out.printf("    |"); // Print only number when there is no checker
+                    System.out.print("    |"); // Print only number when there is no checker
                 }
-                /////
 
             }
             if(bar[i].getNumCheckers() != 0 )

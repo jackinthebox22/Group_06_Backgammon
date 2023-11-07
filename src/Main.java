@@ -23,7 +23,8 @@ public class Main{
         player[1] = new PlayerData(playerNames[1],"blue");
         System.out.println(player[0].getName() + " you are red. " + player[1].getName() + " you are blue");
 
-        Board board = new Board();
+        Checker[][] spikes = Board.Spikes();
+        Bar[] bar = Board.Bar();
 
         System.out.println("Press Any Key to play:");
         command = scanner.nextLine().toUpperCase(); // Initialize the variable with user input
@@ -61,7 +62,7 @@ public class Main{
             // Example: Roll dice for the next turn
 
             
-            board.displayBoard();
+            Board.displayBoard(spikes,bar);
             System.out.println("Take Your Turn. ALLOWABLE COMMANDS: Quit (Q): ");
             command = scanner.nextLine().toUpperCase();
 
