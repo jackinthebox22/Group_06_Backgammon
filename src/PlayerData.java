@@ -2,23 +2,19 @@ import java.util.Scanner;
 
 public class PlayerData {
     public final String name;
-    public int playerNumber;
+    public String playerColour;
 
-    public PlayerData(String name, int playerNumber){
+    public PlayerData(String name, String playerColour){
         this.name = name;
-        this.playerNumber = playerNumber;
+        this.playerColour = playerColour;
     }
 
     public String getName() {return name;}
 
 
-    public int getPlayerNumber(){return playerNumber;}
+    public String getPlayerColour(){return playerColour;}
 
-    public int assignPlayer1(){playerNumber = 1;
-    return playerNumber;}
 
-    public int assignPlayer2(){playerNumber = 2;
-    return playerNumber;}
 
     // gets the player names from the user
     public static String[] getNamesFromUser() {
