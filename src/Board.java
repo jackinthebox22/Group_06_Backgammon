@@ -15,13 +15,13 @@ public class Board {
 
         // Starting Spikes
         spikes[0][0] = new Checker("blue", 5);  // Spike 13
-        spikes[0][4] = new Checker("red", 3);  // Spike 17
-        spikes[0][6] = new Checker("red", 5);  // Spike 19
+        spikes[0][4] = new Checker("red", 3);   // Spike 17
+        spikes[0][6] = new Checker("red", 5);   // Spike 19
         spikes[0][11] = new Checker("blue", 2); // Spike 24
-        spikes[1][0] = new Checker("red", 5);  // Spike 12
+        spikes[1][0] = new Checker("red", 5);   // Spike 12
         spikes[1][4] = new Checker("blue", 3);  // Spike 8
         spikes[1][6] = new Checker("blue", 5);  // Spike 6
-        spikes[1][11] = new Checker("red", 2); // Spike 1
+        spikes[1][11] = new Checker("red", 2);  // Spike 1
     }
     // Displays board to user
     public void displayBoard() {
@@ -56,7 +56,7 @@ public class Board {
                     System.out.print("  |");
                 }
                 if (spikes[i][j] != null) {
-                    String checkerSymbol = spikes[i][j].getColour();
+                    String checkerSymbol = spikes[i][j].getColourCode();
                     int numCheckers = spikes[i][j].getNumCheckers();
                     System.out.printf(spikes[i][j].getColourCode() + " %2s " + reset + "|", numCheckers); // Print number of checkers and checker symbol
                 } else {
@@ -77,6 +77,7 @@ public class Board {
         }
         System.out.print("\u001B[34m" + " blue tray" + reset);
 
-        System.out.println("\n————————————————————————————————————————————————————————————————\n");
+        System.out.println("\n————————————————————————————————————————————————————————————————");
+        System.out.println("Bar: \n");   
     }
 }
