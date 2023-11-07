@@ -14,16 +14,21 @@ public class Main{
         Scanner scanner = new Scanner(System.in);
         String command;
 
-        int[] dice = Roll.rollDice(); // rolls dice
         String[] playerNames = PlayerData.getNamesFromUser();
+        int[] dice;
+        // initializing player data
+        PlayerData[] player = new PlayerData[2];
+
+        player[0] = new PlayerData(playerNames[0],0);
+        player[1] = new PlayerData(playerNames[1],0);
 
         Board board = new Board();
 
         System.out.println("Press Any Key to play:");
         command = scanner.nextLine().toUpperCase(); // Initialize the variable with user input
 
-
         while (!command.equals("Q")) {
+
             // Handle player's turn logic here
             
             // Example: Move a piece

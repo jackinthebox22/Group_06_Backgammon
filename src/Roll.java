@@ -1,17 +1,19 @@
 import java.util.Random;
+import java.util.Scanner;
 
-public class Roll{
+public class Roll {
 
     //rolls two dice
-    public static int[] rollDice(){
+    public static int[] rollDice() {
         int[] dice = new int[2];
         Random random = new Random();
 
-        for(int i = 0; i < 2; i++) {
+        for (int i = 0; i < 2; i++) {
             dice[i] = random.nextInt(6) + 1; // generates random integer from 1 - 6
         }
 
         System.out.println("Dice roll: <" + dice[0] + "> <" + dice[1] + ">");
         return dice;
     }
+
 }

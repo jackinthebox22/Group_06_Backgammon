@@ -2,16 +2,23 @@ import java.util.Scanner;
 
 public class PlayerData {
     public final String name;
-    public final int points;
+    public int playerNumber;
 
-    public PlayerData(String name, int points){
+    public PlayerData(String name, int playerNumber){
         this.name = name;
-        this.points = points;
+        this.playerNumber = playerNumber;
     }
 
     public String getName() {return name;}
 
-    public int getPoints(){return points;}
+
+    public int getPlayerNumber(){return playerNumber;}
+
+    public int assignPlayer1(){playerNumber = 1;
+    return playerNumber;}
+
+    public int assignPlayer2(){playerNumber = 2;
+    return playerNumber;}
 
     // gets the player names from the user
     public static String[] getNamesFromUser() {
