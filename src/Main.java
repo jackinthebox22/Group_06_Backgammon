@@ -49,22 +49,29 @@ public class Main{
 
 
         while (!command.equals("Q")) {
-            System.out.println(player[current_player].getName() + ", it is your turn. You are " + player[current_player].getPlayerColour());
-            System.out.println("Make a move");
-            command = scanner.nextLine().toUpperCase();
-
-
-            // Handle player's turn logic here
-            
-            // Example: Move a piece
-            // board.movePiece(fromSpike, toSpike);
-            
-            // Example: Roll dice for the next turn
-
-            
             Board.displayBoard(spikes,bar);
-            System.out.println("Take Your Turn. ALLOWABLE COMMANDS: Quit (Q): ");
+
+            System.out.println(player[current_player].getName() + ", it is your turn. You are " + player[current_player].getPlayerColour());
+            System.out.println("Make a move (M to move, Q to quit):");
             command = scanner.nextLine().toUpperCase();
+
+            if (command.equals("M")) {
+                int move1 = dice[0];
+                int move2 = dice[1];
+
+                System.out.println("Rolls: " + move1 + ", " + move2);
+                System.out.println("Choose a spike to move from (1-24):");
+                int fromSpike = scanner.nextInt(); // Subtract 1 to convert to 0-based index
+                scanner.nextLine(); // Consume the newline character
+
+                System.out.println("Choose a spike to move to (1-24):");
+                int toSpike = scanner.nextInt();
+                scanner.nextLine(); // Consume the newline character
+
+                // Move the piece
+                Board.movePiece(spikes, fromSpike, toSpike);
+
+            }
 
             current_player++;
             current_player = current_player % 2;
