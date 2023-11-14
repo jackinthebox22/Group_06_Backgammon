@@ -49,17 +49,20 @@ public class Main{
 
 
         while (!command.equals("Q")) {
+            
             Board.displayBoard(spikes, bar);
 
             System.out.println(player[current_player].getName() + ", it is your turn. You are " + player[current_player].getPlayerColour());
-            System.out.println("Make a move (M to move, P to calculate Pip Scores, Q to quit):");
+
+            int move1 = dice[0];
+            int move2 = dice[1];
+            System.out.println("Rolls: " + move1 + ", " + move2);
+
+            System.out.println("Enter Command");
             command = scanner.nextLine().toUpperCase();
 
             if (command.equals("M")) {
-                int move1 = dice[0];
-                int move2 = dice[1];
 
-                System.out.println("Rolls: " + move1 + ", " + move2);
                 System.out.println("Choose a spike to move from (1-24):");
                 int fromSpike = scanner.nextInt(); // Subtract 1 to convert to 0-based index
                 scanner.nextLine(); // Consume the newline character
@@ -83,9 +86,14 @@ public class Main{
                 System.out.println(player[0].getName() + "'s Pip Score: " + player[0].getPipScore());
                 System.out.println(player[1].getName() + "'s Pip Score: " + player[1].getPipScore());
 
-            } 
-
-            dice = Roll.rollDice(player[current_player].getName());
+            } else if (command.equals("H")){
+                System.out.println("Lists of Commands are:");
+                System.out.println("H = Help");
+                System.out.println("M = Move");
+                System.out.println("P = Calculate Pip Scores");
+            } else {
+                System.out.println("Command entered is invalid");
+            }
         }
 
     }
