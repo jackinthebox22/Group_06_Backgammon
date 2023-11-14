@@ -49,28 +49,49 @@ public class Main{
 
 
         while (!command.equals("Q")) {
-            System.out.println(player[current_player].getName() + ", it is your turn. You are " + player[current_player].getPlayerColour());
-            System.out.println("Make a move");
+
             Board.displayBoard(spikes,tray);
+            System.out.println(player[current_player].getName() + ", it is your turn. You are " + player[current_player].getPlayerColour());
+
+            System.out.println("Make a move (M to move, P to calculate Pip Scores, Q to quit):");
+
             int[][] allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes);
 
             command = scanner.nextLine().toUpperCase();
 
+            if (command.equals("M")) {
+                int move1 = dice[0];
+                int move2 = dice[1];
 
-            // Handle player's turn logic here
-            
-            // Example: Move a piece
-            // board.movePiece(fromSpike, toSpike);
-            
-            // Example: Roll dice for the next turn
-
-            
-
+                System.out.println("Rolls: " + move1 + ", " + move2);
+                System.out.println("Choose a spike to move from (1-24):");
+                int fromSpike = scanner.nextInt(); // Subtract 1 to convert to 0-based index
+                scanner.nextLine(); // Consume the newline character
+                
             System.out.println("Take Your Turn. ALLOWABLE COMMANDS: Quit (Q): ");
             command = scanner.nextLine().toUpperCase();
 
-            current_player++;
-            current_player = current_player % 2;
+                System.out.println("Choose a spike to move to (1-24):");
+                int toSpike = scanner.nextInt();
+                scanner.nextLine(); // Consume the newline character
+
+                // Move the piece
+                Board.movePiece(spikes, fromSpike, toSpike);
+
+                // Update pip score after the move
+                int newPipScore = player[current_player].calculatePipScore(player[current_player], spikes);
+                player[current_player].updatePipScore(newPipScore);
+
+                current_player++;
+                current_player = current_player % 2;
+
+            } else if (command.equals("P")) {
+                // Calculate and display both players' pip scores
+                System.out.println(player[0].getName() + "'s Pip Score: " + player[0].getPipScore());
+                System.out.println(player[1].getName() + "'s Pip Score: " + player[1].getPipScore());
+
+            } 
+
             dice = Roll.rollDice(player[current_player].getName());
         }
 

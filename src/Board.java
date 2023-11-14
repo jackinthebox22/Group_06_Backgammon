@@ -40,6 +40,7 @@ public class Board {
         // Initializing reset string to reset the colour output to the terminal
         String reset = "\u001B[0m";
 
+
         // Print top of board (12-24)
         System.out.println(" \n————————————————————————————————————————————————————————————————");
         System.out.print("|");
@@ -96,4 +97,69 @@ public class Board {
         System.out.println("\n————————————————————————————————————————————————————————————————");
         System.out.println("Bar: \n");   
     }
+
+    public static int[] convertSpikeToIndices(int spikeNumber) {
+        int[] indices = new int[2];
+        if (spikeNumber >= 1 && spikeNumber <= 12) {
+            // Bottom row (spikes 1-12)
+            indices[0] = 1;
+            indices[1] = 12 - spikeNumber;
+        } else if (spikeNumber >= 13 && spikeNumber <= 24) {
+            // Top row (spikes 13-24)
+            indices[0] = 0;
+            indices[1] = spikeNumber - 13;
+        } else {
+            System.out.println("Invalid spike number.");
+        }
+
+        // For debugging
+        System.out.println("Spike " + spikeNumber + " -> Row: " + indices[0] + ", Col: " + indices[1]);
+    
+        return indices;
+    }
+
+    public static int convertIndicesToSpike(int row, int col) {
+        if (row == 1) {
+            // Bottom row (spikes 1-12)
+            return 12 - col;
+        } else if (row == 0) {
+            // Top row (spikes 13-24)
+            return 13 + col;
+        } else {
+            System.out.println("Invalid row number.");
+            return -1; // or handle the error accordingly
+        }
+    }
+
+    public static void movePiece(Checker[][] spikes, int fromSpike, int toSpike) {
+        int[] fromIndices = convertSpikeToIndices(fromSpike);
+        int[] toIndices = convertSpikeToIndices(toSpike);
+
+        // Move one checker at a time
+        Checker pieceToMove = spikes[fromIndices[0]][fromIndices[1]];
+        if (pieceToMove != null && pieceToMove.getNumCheckers() > 0) {
+            int numCheckersToMove = 1;  // Change this value based on the number of checkers you want to move
+            int remainingCheckers = pieceToMove.getNumCheckers() - numCheckersToMove;
+
+            // Adjust the number of checkers in the source spike
+            if (remainingCheckers > 0) {
+                spikes[fromIndices[0]][fromIndices[1]].setNumCheckers(remainingCheckers);
+            } else {
+                spikes[fromIndices[0]][fromIndices[1]] = null;  // If no checkers remain, remove the spike
+            }
+            
+            if (spikes[toIndices[0]][toIndices[1]] != null) {
+                // Increment the number of checkers in the destination spike
+                spikes[toIndices[0]][toIndices[1]].setNumCheckers(spikes[toIndices[0]][toIndices[1]].getNumCheckers() + 1);
+            } else {
+                // If the destination spike is empty, create a new checker with one checker
+                spikes[toIndices[0]][toIndices[1]] = new Checker(pieceToMove.getColour(), numCheckersToMove);
+            }
+
+            System.out.println("Move successful. From Spike " + fromSpike + " to Spike " + toSpike);
+        } else {
+            System.out.println("Invalid move: Source spike is empty.");
+        }
+    }
+
 }
