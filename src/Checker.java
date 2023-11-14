@@ -24,6 +24,10 @@ public class Checker {
         return numCheckers;
     }
 
+    public void addChecker() {
+        this.numCheckers++; 
+    }
+
     public void setNumCheckers(int numCheckers) {
         this.numCheckers = numCheckers;
     }
