@@ -40,6 +40,7 @@ public class Board {
         // Initializing reset string to reset the colour output to the terminal
         String reset = "\u001B[0m";
 
+
         // Print top of board (12-24)
         System.out.println(" \n————————————————————————————————————————————————————————————————");
         System.out.print("|");
