@@ -109,11 +109,11 @@ public class Board {
             indices[0] = 0;
             indices[1] = spikeNumber - 13;
         } else {
-            System.out.println("Invalid spike number.");
+            //System.out.println("Invalid spike number.");
         }
 
         // For debugging
-        System.out.println("Spike " + spikeNumber + " -> Row: " + indices[0] + ", Col: " + indices[1]);
+        //System.out.println("Spike " + spikeNumber + " -> Row: " + indices[0] + ", Col: " + indices[1]);
     
         return indices;
     }
@@ -126,7 +126,7 @@ public class Board {
             // Top row (spikes 13-24)
             return 13 + col;
         } else {
-            System.out.println("Invalid row number.");
+            //System.out.println("Invalid row number.");
             return -1; // or handle the error accordingly
         }
     }
