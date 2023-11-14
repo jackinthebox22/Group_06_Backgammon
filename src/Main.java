@@ -24,7 +24,7 @@ public class Main{
         System.out.println(player[0].getName() + " you are red. " + player[1].getName() + " you are blue");
 
         Checker[][] spikes = Board.Spikes();
-        Bar[] bar = Board.Bar();
+        Tray[] tray = Board.Tray();
 
         System.out.println("Press Any Key to play:");
         command = scanner.nextLine().toUpperCase(); // Initialize the variable with user input
@@ -51,6 +51,9 @@ public class Main{
         while (!command.equals("Q")) {
             System.out.println(player[current_player].getName() + ", it is your turn. You are " + player[current_player].getPlayerColour());
             System.out.println("Make a move");
+            Board.displayBoard(spikes,tray);
+            int[][] allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes);
+
             command = scanner.nextLine().toUpperCase();
 
 
@@ -62,7 +65,7 @@ public class Main{
             // Example: Roll dice for the next turn
 
             
-            Board.displayBoard(spikes,bar);
+
             System.out.println("Take Your Turn. ALLOWABLE COMMANDS: Quit (Q): ");
             command = scanner.nextLine().toUpperCase();
 

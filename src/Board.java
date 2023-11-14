@@ -1,7 +1,7 @@
 public class Board {
 
     public static Checker[][] spikes;
-    public static Bar[] bar;
+    public static Tray[] tray;
 
     public static Checker[][] Spikes() {
         // Creates Starting Board
@@ -26,17 +26,17 @@ public class Board {
 
         return spikes;
     }
-    public static Bar[] Bar(){
-        bar = new Bar[2];
+    public static Tray[] Tray(){
+        tray = new Tray[2];
 
-        bar[0] = new Bar("red", 11);
-        bar[1] = new Bar("blue", 0);
+        tray[0] = new Tray("red", 0);
+        tray[1] = new Tray("blue", 0);
 
-        return bar;
+        return tray;
     }
 
     // Displays board to user
-    public static void displayBoard(Checker[][] spikes, Bar[] bar) {
+    public static void displayBoard(Checker[][] spikes, Tray[] tray) {
         // Initializing reset string to reset the colour output to the terminal
         String reset = "\u001B[0m";
 
@@ -76,8 +76,8 @@ public class Board {
                 }
 
             }
-            if(bar[i].getNumCheckers() != 0 )
-                System.out.print(" " + bar[i].getColourCode() + bar[i].getNumCheckers() + reset);
+            if(tray[i].getNumCheckers() != 0 )
+                System.out.print(" " + tray[i].getColourCode() + tray[i].getNumCheckers() + reset);
 
             System.out.println();
         }

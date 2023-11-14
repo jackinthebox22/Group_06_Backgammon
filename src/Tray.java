@@ -1,8 +1,8 @@
-public class Bar extends Checker{
+public class Tray extends Checker{
     private int numCheckers;
     private String colour;
 
-    public Bar(String colour, int numCheckers) {
+    public Tray(String colour, int numCheckers) {
         super(colour, numCheckers);
     }
 

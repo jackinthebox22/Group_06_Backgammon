@@ -30,4 +30,12 @@ public class PlayerData {
 
         return playerNames;
     }
+
+    public int playerDirection() {
+        int direction = 1;
+
+        if(playerColour.equals("blue")) direction = -1;
+
+        return direction;
+    }
 }
