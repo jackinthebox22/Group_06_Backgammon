@@ -83,6 +83,13 @@ public class Main{
                 if (command.equals("M")) {
 
                     while (dice[0] != 0 || dice[1] != 0){
+
+                        if (dice[0] == 0 || dice[1] == 0) {
+                            Board.displayBoard(spikes, tray, player[current_player]);
+                            // Add command to redo Moves
+                            allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour());
+                            ValidMoves.printMoves(allMoves);
+                        }
                         int moveChoice = getUserMoveChoice(allMoves);
         
                         if (moveChoice >= 1 && moveChoice <= allMoves.size()) {
