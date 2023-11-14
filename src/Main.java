@@ -103,9 +103,6 @@ public class Main{
                     System.out.println("Command entered is invalid");
                 }
             }
-
-
         }
-
     }
 }
