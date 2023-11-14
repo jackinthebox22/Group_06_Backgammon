@@ -57,8 +57,8 @@ public class Main{
 
             System.out.println("Make a move (M to move, P to calculate Pip Scores, Q to quit):");
 
-            int[][] allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes);
-
+            ArrayList<ArrayList<Integer>> allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour());
+            System.out.println(allMoves);
 
             int move1 = dice[0];
             int move2 = dice[1];
