@@ -48,4 +48,32 @@ public class ValidMoves {
         return allMoves;
     }
 
+    public static void printMoves(ArrayList<ArrayList<Integer>> moves) {
+        int choiceNumber = 1;
+
+        System.out.println("Move Options:");
+
+        for (ArrayList<Integer> move : moves) {
+            int moveFrom = move.get(1);
+            int moveTo = move.get(2);
+            int diceUsed = move.get(3);
+
+            String diceUsedStr;
+            if (diceUsed == 0) {
+                diceUsedStr = "1st";
+            } else if (diceUsed == 1) {
+                diceUsedStr = "2nd";
+            } else {
+                diceUsedStr = "both";
+            }
+
+            if (moveTo == 0){
+                System.out.println(choiceNumber++ + ") Bear off from " + moveFrom + " using " + diceUsedStr + " Die");
+            } else {
+                System.out.println(choiceNumber++ + ") " + moveFrom + " to " + moveTo + " using " + diceUsedStr + " Die");
+            }
+        }
+    }
+
+
 }

@@ -54,9 +54,8 @@ public class Main{
             System.out.println(player[current_player].getName() + ", it is your turn. You are " + player[current_player].getPlayerColour());
             System.out.println("Enter Command:");
 
-
             ArrayList<ArrayList<Integer>> allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour());
-            System.out.println(allMoves);
+            ValidMoves.printMoves(allMoves);
 
             int move1 = dice[0];
             int move2 = dice[1];
