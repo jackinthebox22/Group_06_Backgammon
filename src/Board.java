@@ -36,10 +36,12 @@ public class Board {
     }
 
     // Displays board to user
-    public static void displayBoard(Checker[][] spikes, Tray[] tray) {
+    public static void displayBoard(Checker[][] spikes, Tray[] tray, PlayerData currentPlayer) {
         // Initializing reset string to reset the colour output to the terminal
         String reset = "\u001B[0m";
 
+        // Print the current player's pip score
+        System.out.println(currentPlayer.getName() + "'s Pip Score: " + currentPlayer.getPipScore());
 
         // Print top of board (12-24)
         System.out.println(" \n————————————————————————————————————————————————————————————————");

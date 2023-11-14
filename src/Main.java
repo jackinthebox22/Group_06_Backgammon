@@ -51,11 +51,12 @@ public class Main{
         while (!command.equals("Q")) {
 
 
-            Board.displayBoard(spikes,tray);
+            Board.displayBoard(spikes, tray, player[current_player]);
+            
             System.out.println(player[current_player].getName() + ", it is your turn. You are " + player[current_player].getPlayerColour());
 
 
-            System.out.println("Make a move (M to move, P to calculate Pip Scores, Q to quit):");
+            System.out.println("Enter Command:");
 
 
             ArrayList<ArrayList<Integer>> allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour());
@@ -66,7 +67,7 @@ public class Main{
             int move2 = dice[1];
             System.out.println("Rolls: " + move1 + ", " + move2);
 
-            System.out.println("Enter Command");
+            System.out.println("Enter Command:");
 
             command = scanner.nextLine().toUpperCase();
 
@@ -76,8 +77,6 @@ public class Main{
                 int fromSpike = scanner.nextInt(); // Subtract 1 to convert to 0-based index
                 scanner.nextLine(); // Consume the newline character
                 
-            System.out.println("Take Your Turn. ALLOWABLE COMMANDS: Quit (Q): ");
-            command = scanner.nextLine().toUpperCase();
 
                 System.out.println("Choose a spike to move to (1-24):");
                 int toSpike = scanner.nextInt();
