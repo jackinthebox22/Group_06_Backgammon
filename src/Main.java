@@ -46,8 +46,6 @@ public class Main{
         }
         System.out.println(player[current_player].getName() + " goes first");
 
-
-
         while (!command.equals("Q")) {
 
             Board.displayBoard(spikes, tray, player[current_player]);
