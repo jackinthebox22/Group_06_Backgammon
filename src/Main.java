@@ -52,7 +52,7 @@ public class Main{
             Board.displayBoard(spikes,bar);
 
             System.out.println(player[current_player].getName() + ", it is your turn. You are " + player[current_player].getPlayerColour());
-            System.out.println("Make a move (M to move, Q to quit):");
+            System.out.println("Make a move (M to move, P to calculate Pip Scores, Q to quit):");
             command = scanner.nextLine().toUpperCase();
 
             if (command.equals("M")) {
@@ -71,10 +71,32 @@ public class Main{
                 // Move the piece
                 Board.movePiece(spikes, fromSpike, toSpike);
 
+                // Update pip score after the move
+                int newPipScore = player[current_player].calculatePipScore(player[current_player], spikes);
+                player[current_player].updatePipScore(newPipScore);
+
+                current_player++;
+                current_player = current_player % 2;
+
+            } else if (command.equals("P")) {
+                // Calculate and display both players' pip scores
+                System.out.println(player[0].getName() + "'s Pip Score: " + player[0].getPipScore());
+                System.out.println(player[1].getName() + "'s Pip Score: " + player[1].getPipScore());
+
+            } else if (command.equals("T")) {
+                // Test convertIndicesToSpike
+                System.out.println("Enter row (0 or 1): ");
+                int testRow = scanner.nextInt();
+                scanner.nextLine(); // Consume the newline character
+        
+                System.out.println("Enter column (0-11): ");
+                int testCol = scanner.nextInt();
+                scanner.nextLine(); // Consume the newline character
+        
+                int testSpike = Board.convertIndicesToSpike(testRow, testCol);
+                System.out.println("Converted Spike: " + testSpike);
             }
 
-            current_player++;
-            current_player = current_player % 2;
             dice = Roll.rollDice(player[current_player].getName());
         }
 

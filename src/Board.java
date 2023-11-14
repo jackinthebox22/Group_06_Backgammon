@@ -117,6 +117,19 @@ public class Board {
         return indices;
     }
 
+    public static int convertIndicesToSpike(int row, int col) {
+        if (row == 1) {
+            // Bottom row (spikes 1-12)
+            return 12 - col;
+        } else if (row == 0) {
+            // Top row (spikes 13-24)
+            return 13 + col;
+        } else {
+            System.out.println("Invalid row number.");
+            return -1; // or handle the error accordingly
+        }
+    }
+
     public static void movePiece(Checker[][] spikes, int fromSpike, int toSpike) {
         int[] fromIndices = convertSpikeToIndices(fromSpike);
         int[] toIndices = convertSpikeToIndices(toSpike);
@@ -142,7 +155,7 @@ public class Board {
                 spikes[toIndices[0]][toIndices[1]] = new Checker(pieceToMove.getColour(), numCheckersToMove);
             }
 
-            System.out.println("Move successful.");
+            System.out.println("Move successful. From Spike " + fromSpike + " to Spike " + toSpike);
         } else {
             System.out.println("Invalid move: Source spike is empty.");
         }
