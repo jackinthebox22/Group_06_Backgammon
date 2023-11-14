@@ -15,5 +15,6 @@ public class Roll {
         System.out.println(player_name + " rolled: <" + dice[0] + "> <" + dice[1] + ">");
         return dice;
     }
+    
 
 }
