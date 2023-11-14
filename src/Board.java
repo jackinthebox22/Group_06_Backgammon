@@ -41,7 +41,7 @@ public class Board {
         String reset = "\u001B[0m";
 
         // Print the current player's pip score
-        System.out.println(currentPlayer.getName() + "'s Pip Score: " + currentPlayer.getPipScore());
+        System.out.print(currentPlayer.getName() + "'s Pip Score: " + currentPlayer.getPipScore());
 
         // Print top of board (12-24)
         System.out.println(" \n————————————————————————————————————————————————————————————————");
