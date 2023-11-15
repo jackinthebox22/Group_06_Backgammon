@@ -178,7 +178,6 @@ public class Board {
                 spikes[toIndices[0]][toIndices[1]] = new Checker(pieceToMove.getColour(), numCheckersToMove);
             }
 
-            System.out.println("Move successful. From Spike " + fromSpike + " to Spike " + toSpike);
         } else {
             System.out.println("Invalid move: Source spike is empty.");
         }

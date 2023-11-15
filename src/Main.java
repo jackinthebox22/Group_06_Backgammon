@@ -79,35 +79,42 @@ public class Main{
                 System.out.println("Enter Command:");
                 command = scanner.nextLine().toUpperCase();
                 int moveChoice;
+                // Inside the "M" block in the main method
                 if (command.equals("M")) {
+                    boolean nextPlayerTurn = false;
 
-                    boolean nextplayerturn = false;
-
-
-                    while(!nextplayerturn) {
+                    while (!nextPlayerTurn) {
                         ValidMoves.printMoves(allMoves);
-                        moveChoice = getUserMoveChoice(allMoves);
-                        ArrayList<Integer> selectedMove = allMoves.get(moveChoice - 1);
-                        int fromSpike = selectedMove.get(1);
-                        int toSpike = selectedMove.get(2);
-                        int dieUsed = selectedMove.get(3);
 
-                        Board.movePiece(spikes, fromSpike, toSpike, bar);
+                        if (allMoves.isEmpty()) {
+                            System.out.println("No available moves. Ending " + player[current_player].getName() + "'s turn.");
+                            nextPlayerTurn = true;
+                        } else {
+                            moveChoice = getUserMoveChoice(allMoves);
+                            ArrayList<Integer> selectedMove = allMoves.get(moveChoice - 1);
+                            int fromSpike = selectedMove.get(1);
+                            int toSpike = selectedMove.get(2);
+                            int dieUsed = selectedMove.get(3);
 
+                            Board.movePiece(spikes, fromSpike, toSpike, bar);
 
-                        if(dieUsed == 2) nextplayerturn = true;
-                        else {
-                            allMoves = ValidMoves.removeDie(allMoves,dieUsed);
-                            allMoves = ValidMoves.removeDie(allMoves,2);
-                            if(allMoves.isEmpty()) nextplayerturn = true;
-                            else Board.displayBoard(spikes, tray, player[current_player], bar);
+                            if (dieUsed == 2) {
+                                nextPlayerTurn = true;
+                            } else {
+                                allMoves = ValidMoves.removeDie(allMoves, dieUsed);
+                                allMoves = ValidMoves.removeDie(allMoves, 2);
+                                if (allMoves.isEmpty()) {
+                                    nextPlayerTurn = true;
+                                    System.out.println("No more moves. Ending " + player[current_player].getName() + "'s turn.");
+                                } else {
+                                    Board.displayBoard(spikes, tray, player[current_player], bar);
+                                }
+                            }
                         }
                     }
 
-
                     current_player++;
                     current_player = current_player % 2;
-
                 } else if (command.equals("P")) {
                     // Calculate and display both players' pip scores
                     System.out.println(player[0].getName() + "'s Pip Score: " + player[0].getPipScore());
