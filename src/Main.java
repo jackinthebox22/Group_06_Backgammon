@@ -67,8 +67,7 @@ public class Main{
             }
         
             ArrayList<ArrayList<Integer>> allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour());
-            ValidMoves.printMoves(allMoves);
-        
+
             command = " ";
         
             while (!command.equals("M")) {
@@ -78,66 +77,31 @@ public class Main{
 
                 System.out.println("Enter Command:");
                 command = scanner.nextLine().toUpperCase();
-        
+                int moveChoice;
                 if (command.equals("M")) {
 
-                    while (dice[0] != 0 || dice[1] != 0){
+                    boolean nextplayerturn = false;
 
-                        if (dice[0] == 0 || dice[1] == 0) {
-                            Board.displayBoard(spikes, tray, player[current_player]);
-                            // Add command to redo Moves
-                            allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour());
-                            ValidMoves.printMoves(allMoves);
-                        }
-                        int moveChoice = getUserMoveChoice(allMoves);
-        
-                        if (moveChoice >= 1 && moveChoice <= allMoves.size()) {
-                            ArrayList<Integer> selectedMove = allMoves.get(moveChoice - 1);
-                            int fromSpike = selectedMove.get(1);
-                            int toSpike = selectedMove.get(2);
-                            int dieChoice = selectedMove.get(3);
+                    while(!nextplayerturn) {
+                        ValidMoves.printMoves(allMoves);
+                        moveChoice = getUserMoveChoice(allMoves);
+                        ArrayList<Integer> selectedMove = allMoves.get(moveChoice - 1);
+                        int fromSpike = selectedMove.get(1);
+                        int toSpike = selectedMove.get(2);
+                        int dieUsed = selectedMove.get(3);
 
-                            if (dieChoice == 0) {
-                                // Move the piece
-                                Board.movePiece(spikes, fromSpike, toSpike);
+                        Board.movePiece(spikes, fromSpike, toSpike);
 
-                                // Update pip score after the move
-                                int newPipScore = player[current_player].calculatePipScore(player[current_player], spikes);
-                                player[current_player].updatePipScore(newPipScore);
-                                dice[0] = 0;
+                        if(dieUsed == 2) nextplayerturn = true;
+                        else {
+                            allMoves = ValidMoves.removeDie(allMoves,dieUsed);
+                            allMoves = ValidMoves.removeDie(allMoves,2);
+                            if(allMoves.isEmpty()) nextplayerturn = true;
+                            else Board.displayBoard(spikes, tray, player[current_player]);
 
-                            } else if (dieChoice == 1) {
-                                // Move the piece
-                                Board.movePiece(spikes, fromSpike, toSpike);
-
-                                // Update pip score after the move
-                                int newPipScore = player[current_player].calculatePipScore(player[current_player], spikes);
-                                player[current_player].updatePipScore(newPipScore);    
-                                
-                                dice[1] = 0;
-
-                            } else {
-                                // Move the piece
-                                Board.movePiece(spikes, fromSpike, toSpike);
-
-                                // Update pip score after the move
-                                int newPipScore = player[current_player].calculatePipScore(player[current_player], spikes);
-                                player[current_player].updatePipScore(newPipScore);
-
-                                dice[0] = 0;
-                                dice[1] = 0;
-                            }
-            
-                            // Check for bearing off
-                            if (toSpike == 0) {
-                                tray[current_player].addChecker();
-                                tray[current_player].checkWinner();
-                            }
-        
-                        } else {
-                            System.out.println("Invalid move choice. Please choose a valid move.");
                         }
                     }
+
 
                     current_player++;
                     current_player = current_player % 2;
