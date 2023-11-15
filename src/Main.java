@@ -90,8 +90,9 @@ public class Main{
                         ValidMoves.printMoves(barMoves);
                         System.out.println(barMoves);
 
-                        moveChoice = getUserMoveChoice(allMoves);
-                        ArrayList<Integer> selectedMove = allMoves.get(moveChoice - 1);
+                        moveChoice = getUserMoveChoice(barMoves);
+                        ArrayList<Integer> selectedMove = barMoves.get(moveChoice - 1);
+                        
                         int toSpike = selectedMove.get(2);
                         System.out.println(toSpike);
                         Board.addCheckerToSpike(spikes, toSpike, player[current_player]);
