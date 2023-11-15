@@ -135,7 +135,10 @@ public class Main{
                     current_player++;
                     current_player = current_player % 2;
                 } else if (command.equals("P")) {
-                    // Calculate and display both players' pip scores
+                    // Update and display both players' pip scores
+                    player[0].calculatePipScore(spikes);
+                    player[1].calculatePipScore(spikes);
+
                     System.out.println(player[0].getName() + "'s Pip Score: " + player[0].getPipScore());
                     System.out.println(player[1].getName() + "'s Pip Score: " + player[1].getPipScore());
         

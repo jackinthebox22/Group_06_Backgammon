@@ -48,14 +48,14 @@ public class PlayerData {
         this.pipScore = newPipScore;
     }
 
-    public int calculatePipScore(PlayerData player, Checker[][] spikes) {
+    public void calculatePipScore(Checker[][] spikes) {
         int pipScore = 0;
     
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 12; j++) {
-                if (spikes[i][j] != null && spikes[i][j].getColour().equals(player.getPlayerColour())) {
+                if (spikes[i][j] != null && spikes[i][j].getColour().equals(playerColour)) {
                     int spikeNumber;
-                    if (player.getPlayerColour().equals("blue")) {
+                    if (playerColour.equals("blue")) {
                         spikeNumber = Board.convertIndicesToSpike(i, j);
                     } else {
                         // For red, reverse the spike numbering
@@ -66,6 +66,6 @@ public class PlayerData {
             }
         }
     
-        return pipScore;
+        this.pipScore = pipScore;
     }
 }
