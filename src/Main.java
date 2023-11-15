@@ -35,6 +35,7 @@ public class Main{
 
         Checker[][] spikes = Board.Spikes();
         Tray[] tray = Board.Tray();
+        Bar bar = new Bar();
 
         System.out.println("Press Any Key to play:");
         command = scanner.nextLine().toUpperCase(); // Initialize the variable with user input
@@ -59,7 +60,7 @@ public class Main{
 
         while (!command.equals("Q")) {
 
-            Board.displayBoard(spikes, tray, player[current_player]);
+            Board.displayBoard(spikes, tray, player[current_player], bar);
             System.out.println(player[current_player].getName() + ", it is your turn. You are " + player[current_player].getPlayerColour());
 
             if (firstLoop == 1) {
@@ -85,7 +86,7 @@ public class Main{
                     while (dice[0] != 0 || dice[1] != 0){
 
                         if (dice[0] == 0 || dice[1] == 0) {
-                            Board.displayBoard(spikes, tray, player[current_player]);
+                            Board.displayBoard(spikes, tray, player[current_player], bar);
                             // Add command to redo Moves
                             allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour());
                             ValidMoves.printMoves(allMoves);
@@ -100,7 +101,7 @@ public class Main{
 
                             if (dieChoice == 0) {
                                 // Move the piece
-                                Board.movePiece(spikes, fromSpike, toSpike);
+                                Board.movePiece(spikes, fromSpike, toSpike, bar);
 
                                 // Update pip score after the move
                                 int newPipScore = player[current_player].calculatePipScore(player[current_player], spikes);
@@ -109,7 +110,7 @@ public class Main{
 
                             } else if (dieChoice == 1) {
                                 // Move the piece
-                                Board.movePiece(spikes, fromSpike, toSpike);
+                                Board.movePiece(spikes, fromSpike, toSpike, bar);
 
                                 // Update pip score after the move
                                 int newPipScore = player[current_player].calculatePipScore(player[current_player], spikes);
@@ -119,7 +120,7 @@ public class Main{
 
                             } else {
                                 // Move the piece
-                                Board.movePiece(spikes, fromSpike, toSpike);
+                                Board.movePiece(spikes, fromSpike, toSpike, bar);
 
                                 // Update pip score after the move
                                 int newPipScore = player[current_player].calculatePipScore(player[current_player], spikes);

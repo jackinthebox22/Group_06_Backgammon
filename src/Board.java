@@ -36,7 +36,7 @@ public class Board {
     }
 
     // Displays board to user
-    public static void displayBoard(Checker[][] spikes, Tray[] tray, PlayerData currentPlayer) {
+    public static void displayBoard(Checker[][] spikes, Tray[] tray, PlayerData currentPlayer, Bar bar) {
         // Initializing reset string to reset the colour output to the terminal
         String reset = "\u001B[0m";
 
@@ -97,7 +97,10 @@ public class Board {
         System.out.print("\u001B[34m" + " blue tray" + reset);
 
         System.out.println("\n————————————————————————————————————————————————————————————————");
-        System.out.println("Bar: \n");   
+        // Print the bar with separate counts for red and blue checkers
+        System.out.println("Bar: Red(" +  "\u001B[31m" + bar.getRedCheckers() + reset + ") | Blue(" + "\u001B[34m" + bar.getBlueCheckers() + reset + ")");
+
+
     }
 
     public static int[] convertSpikeToIndices(int spikeNumber) {
@@ -133,7 +136,7 @@ public class Board {
         }
     }
 
-    public static void movePiece(Checker[][] spikes, int fromSpike, int toSpike) {
+    public static void movePiece(Checker[][] spikes, int fromSpike, int toSpike, Bar bar) {
         int[] fromIndices = convertSpikeToIndices(fromSpike);
         int[] toIndices = convertSpikeToIndices(toSpike);
 
@@ -155,8 +158,16 @@ public class Board {
                 if (spikes[toIndices[0]][toIndices[1]].getColour() != pieceToMove.getColour() && spikes[toIndices[0]][toIndices[1]].getNumCheckers() == 1) {
                     // Replace the existing checker and move the other to the bar
                     System.out.println("Move successful. Replaced checker at Spike " + toSpike + " and moved to the bar.");
-                    spikes[toIndices[0]][toIndices[1]].setNumCheckers(spikes[toIndices[0]][toIndices[1]].getNumCheckers() + 1);
                     spikes[toIndices[0]][toIndices[1]].changeColour();
+
+                    // Update the bar counts based on the color of the moved checker
+                    if (pieceToMove.getColour().equals("red")) {
+                        bar.addBlueChecker(); // add one checker of opposite color to the Bar
+                    } else {
+                        bar.addRedChecker(); // add one checker of opposite color to the Bar
+                    }
+
+                    System.out.println("Moved checker of color " + pieceToMove.getColour() + " to the bar.");
                 } else {
                     // Increment the number of checkers in the destination spike
                     spikes[toIndices[0]][toIndices[1]].setNumCheckers(spikes[toIndices[0]][toIndices[1]].getNumCheckers() + 1);
