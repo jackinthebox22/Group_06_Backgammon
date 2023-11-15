@@ -32,6 +32,14 @@ public class Checker {
         this.numCheckers = numCheckers;
     }
 
+    public void changeColour() {
+        if (getColour().equals("blue")) {
+            this.colour = "red";
+        } else {
+            this.colour = "blue";
+        }
+    }
+
     @Override
     public String toString() {
         return colour;
