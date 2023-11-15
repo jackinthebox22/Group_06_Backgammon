@@ -23,4 +23,24 @@ public class Bar extends Checker {
     public void addBlueChecker() {
         this.blueCheckers++;
     }
+
+    public void removeRedChecker() {
+        if (this.redCheckers > 0) {
+            this.redCheckers--;
+        }
+    }
+
+    public void removeBlueChecker() {
+        if (this.blueCheckers > 0) {
+            this.blueCheckers--;
+        }
+    }
+
+    public boolean hasChecker(String colour) {
+        return (colour.equals("red") && this.redCheckers > 0) || (colour.equals("blue") && this.blueCheckers > 0);
+    }
+
+    public boolean hasCheckersOfColor(String colour) {
+        return (colour.equals("red") && this.redCheckers > 0) || (colour.equals("blue") && this.blueCheckers > 0);
+    }
 }
