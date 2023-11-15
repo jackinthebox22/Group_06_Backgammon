@@ -34,7 +34,7 @@ public class ValidMoves {
                         if(extractValue(allMoves, allmovesindex - 1, 1) == spikenumber || extractValue(allMoves, allmovesindex - 2, 1) == spikenumber)  moveto = spikenumber + (dice[0] + dice[1])*direction;
                         else moveto = -1;
 
-                        if (i < 2 && dice[i] != 0) moveto = spikenumber + dice[i]*direction;
+                        if (i < 2) moveto = spikenumber + dice[i]*direction;
 
                         if (moveto == 25) moveto = 0;
 
