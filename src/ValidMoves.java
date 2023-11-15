@@ -20,6 +20,7 @@ public class ValidMoves {
         if(dice[1] > dice[0]) {
             biggerdie = dice[1]; smallerdie = dice[0];
         }
+        int samesizedie = 0;
 
         for (int row = 1; row >= 0; row--){
             for (int col = 11; col >= 0; col--){
@@ -45,7 +46,10 @@ public class ValidMoves {
                             allmovesrow.add(spikenumber);
                             allmovesrow.add(moveto);
 
-                            if(Math.abs(spikenumber-moveto) == biggerdie) allmovesrow.add(1); //well need the bigger die smaller die values for calculations later
+                            if(biggerdie == smallerdie && Math.abs(spikenumber-moveto) != 2*biggerdie){
+                                allmovesrow.add(samesizedie++ % 2);
+                            }
+                            else if(Math.abs(spikenumber-moveto) == biggerdie) allmovesrow.add(1); //well need the bigger die smaller die values for calculations later
                             else if (Math.abs(spikenumber-moveto) == smallerdie) allmovesrow.add(0);
                             else allmovesrow.add(2);
 
@@ -141,5 +145,10 @@ public class ValidMoves {
 
             return -1; // You can return a specific value or throw an exception as needed
         }
+    }
+
+    public static ArrayList<ArrayList<Integer>> removeDie(ArrayList<ArrayList<Integer>> allMoves, int dieChoice){
+        allMoves.removeIf(row -> row.get(3) == dieChoice);
+        return allMoves;
     }
 }
