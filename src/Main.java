@@ -73,9 +73,8 @@ public class Main{
         
             while (!command.equals("M")) {
                 firstLoop = 1;
-                int move1 = dice[0];
-                int move2 = dice[1];
-                System.out.println("Rolls: " + move1 + ", " + move2);
+
+                System.out.println("Rolls: " + dice[0] + ", " + dice[1]);
 
                 System.out.println("Enter Command:");
                 command = scanner.nextLine().toUpperCase();
