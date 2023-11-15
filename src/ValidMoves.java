@@ -75,18 +75,34 @@ public class ValidMoves {
 
     public static ArrayList<ArrayList<Integer>> barMoves(int[] dice, int direction, Checker[][] spikes, String color) {
         ArrayList<ArrayList<Integer>> barMoves = new ArrayList<>();
-        int bar = (direction == 1) ? 25 : 0; // Bar position based on direction
-    
-        for (int i = 0; i < 2; i++) {
-            int moveTo = bar - dice[i] * direction;
-            if ((direction == 1 && moveTo >= 1 && moveTo <= 6) || (direction == -1 && moveTo >= 19 && moveTo <= 24)) {
+        int bar = (direction == 1) ? 0 : 25; // Bar position based on direction
+        System.out.println(bar);
+        int biggerdie = dice[0];
+        int smallerdie = dice[1];
+        if(dice[1] > dice[0]) {
+            biggerdie = dice[1]; smallerdie = dice[0];
+        }
+        int samesizedie = 0;
+        int moveTo;
+        for (int i = 0; i <= 2; i++) {
+
+            if(extractValue(barMoves, i - 1, 1) == bar || extractValue(barMoves, i - 2, 1) == bar)  moveTo = bar + (dice[0] + dice[1])*direction;
+            else moveTo = -1;
+
+            if(i < 2) moveTo = bar + dice[i] * direction;
                 // Valid moves only onto the opponent's home board
-                ArrayList<Integer> barMove = new ArrayList<>();
-                barMove.add(i); // Index number
-                barMove.add(bar); // Move from
-                barMove.add(moveTo); // Move to
-                barMoves.add(barMove);
-            }
+                ArrayList<Integer> barMoveRow = new ArrayList<>();
+                barMoveRow.add(i); // Index number
+                barMoveRow.add(bar); // Move from
+                barMoveRow.add(moveTo); // Move to
+
+                if(biggerdie == smallerdie && Math.abs(bar-moveTo) != 2*biggerdie){
+                    barMoveRow.add(samesizedie++ % 2);
+                }
+                else if(Math.abs(bar-moveTo) == biggerdie) barMoveRow.add(1); //well need the bigger die smaller die values for calculations later
+                else if (Math.abs(bar-moveTo) == smallerdie) barMoveRow.add(0);
+                else barMoveRow.add(2);
+                barMoves.add(barMoveRow);
         }
         return barMoves;
     }

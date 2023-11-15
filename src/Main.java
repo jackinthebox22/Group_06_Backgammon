@@ -88,10 +88,12 @@ public class Main{
 
                         ArrayList<ArrayList<Integer>> barMoves = ValidMoves.barMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour());
                         ValidMoves.printMoves(barMoves);
+                        System.out.println(barMoves);
 
                         moveChoice = getUserMoveChoice(allMoves);
                         ArrayList<Integer> selectedMove = allMoves.get(moveChoice - 1);
                         int toSpike = selectedMove.get(2);
+                        System.out.println(toSpike);
                         Board.addCheckerToSpike(spikes, toSpike, player[current_player]);
    
                         //Removes checker from Bar
@@ -138,7 +140,7 @@ public class Main{
                         }
 
                     }
-                    
+
                     current_player = ++current_player % 2;
 
                 } else if (command.equals("P")) {
