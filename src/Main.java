@@ -55,51 +55,94 @@ public class Main{
             System.out.print("It was a draw. ");
         }
         System.out.println(player[current_player].getName() + " goes first");
+        int firstLoop = 0;
 
         while (!command.equals("Q")) {
 
             Board.displayBoard(spikes, tray, player[current_player]);
             System.out.println(player[current_player].getName() + ", it is your turn. You are " + player[current_player].getPlayerColour());
+
+            if (firstLoop == 1) {
+                dice = Roll.rollDice(player[current_player].getName());
+            }
         
             ArrayList<ArrayList<Integer>> allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour());
             ValidMoves.printMoves(allMoves);
         
-            int move1 = dice[0];
-            int move2 = dice[1];
-            System.out.println("Rolls: " + move1 + ", " + move2);
-        
             command = " ";
         
             while (!command.equals("M")) {
+                firstLoop = 1;
+                int move1 = dice[0];
+                int move2 = dice[1];
+                System.out.println("Rolls: " + move1 + ", " + move2);
+
                 System.out.println("Enter Command:");
                 command = scanner.nextLine().toUpperCase();
         
                 if (command.equals("M")) {
-                    int moveChoice = getUserMoveChoice(allMoves);
-        
-                    if (moveChoice >= 1 && moveChoice <= allMoves.size()) {
-                        ArrayList<Integer> selectedMove = allMoves.get(moveChoice - 1);
-                        int fromSpike = selectedMove.get(1);
-                        int toSpike = selectedMove.get(2);
-        
-                        // Move the piece
-                        Board.movePiece(spikes, fromSpike, toSpike);
-        
-                        // Update pip score after the move
-                        int newPipScore = player[current_player].calculatePipScore(player[current_player], spikes);
-                        player[current_player].updatePipScore(newPipScore);
-        
-                        // Check for bearing off
-                        if (toSpike == 0) {
-                            tray[current_player].addChecker();
-                            tray[current_player].checkWinner();
+
+                    while (dice[0] != 0 || dice[1] != 0){
+
+                        if (dice[0] == 0 || dice[1] == 0) {
+                            Board.displayBoard(spikes, tray, player[current_player]);
+                            // Add command to redo Moves
+                            allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour());
+                            ValidMoves.printMoves(allMoves);
                         }
+                        int moveChoice = getUserMoveChoice(allMoves);
         
-                        current_player++;
-                        current_player = current_player % 2;
-                    } else {
-                        System.out.println("Invalid move choice. Please choose a valid move.");
+                        if (moveChoice >= 1 && moveChoice <= allMoves.size()) {
+                            ArrayList<Integer> selectedMove = allMoves.get(moveChoice - 1);
+                            int fromSpike = selectedMove.get(1);
+                            int toSpike = selectedMove.get(2);
+                            int dieChoice = selectedMove.get(3);
+
+                            if (dieChoice == 0) {
+                                // Move the piece
+                                Board.movePiece(spikes, fromSpike, toSpike);
+
+                                // Update pip score after the move
+                                int newPipScore = player[current_player].calculatePipScore(player[current_player], spikes);
+                                player[current_player].updatePipScore(newPipScore);
+                                dice[0] = 0;
+
+                            } else if (dieChoice == 1) {
+                                // Move the piece
+                                Board.movePiece(spikes, fromSpike, toSpike);
+
+                                // Update pip score after the move
+                                int newPipScore = player[current_player].calculatePipScore(player[current_player], spikes);
+                                player[current_player].updatePipScore(newPipScore);    
+                                
+                                dice[1] = 0;
+
+                            } else {
+                                // Move the piece
+                                Board.movePiece(spikes, fromSpike, toSpike);
+
+                                // Update pip score after the move
+                                int newPipScore = player[current_player].calculatePipScore(player[current_player], spikes);
+                                player[current_player].updatePipScore(newPipScore);
+
+                                dice[0] = 0;
+                                dice[1] = 0;
+                            }
+            
+                            // Check for bearing off
+                            if (toSpike == 0) {
+                                tray[current_player].addChecker();
+                                tray[current_player].checkWinner();
+                            }
+        
+                        } else {
+                            System.out.println("Invalid move choice. Please choose a valid move.");
+                        }
                     }
+
+                    current_player++;
+                    current_player = current_player % 2;
+
                 } else if (command.equals("P")) {
                     // Calculate and display both players' pip scores
                     System.out.println(player[0].getName() + "'s Pip Score: " + player[0].getPipScore());
