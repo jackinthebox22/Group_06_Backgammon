@@ -73,6 +73,26 @@ public class ValidMoves {
         return allMoves;
     }
 
+    public static ArrayList<ArrayList<Integer>> barMoves(int[] dice, int direction, Checker[][] spikes, String color) {
+        ArrayList<ArrayList<Integer>> barMoves = new ArrayList<>();
+        int bar = (direction == 1) ? 25 : 0; // Bar position based on direction
+    
+        for (int i = 0; i < 2; i++) {
+            int moveTo = bar - dice[i] * direction;
+            if ((direction == 1 && moveTo >= 1 && moveTo <= 6) || (direction == -1 && moveTo >= 19 && moveTo <= 24)) {
+                // Valid moves only onto the opponent's home board
+                ArrayList<Integer> barMove = new ArrayList<>();
+                barMove.add(i); // Index number
+                barMove.add(bar); // Move from
+                barMove.add(moveTo); // Move to
+                barMoves.add(barMove);
+            }
+        }
+        return barMoves;
+    }
+
+    
+
     public static void printMoves(ArrayList<ArrayList<Integer>> moves) {
         int choiceNumber = 1;
 

@@ -86,14 +86,14 @@ public class Main{
                     if (bar.hasCheckersOfColor(player[current_player].getPlayerColour())) {
                         System.out.println("You have Checker on Bar you must move");
 
-                        //===================================================
-                        int BarToSpike;
-                        System.out.println("Choose Spike to move to");
-                        BarToSpike = scanner.nextInt();
-                        //===================================================
+                        ArrayList<ArrayList<Integer>> barMoves = ValidMoves.barMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour());
+                        ValidMoves.printMoves(barMoves);
 
-                        Board.addCheckerToSpike(spikes, BarToSpike, player[current_player]);
-                        
+                        moveChoice = getUserMoveChoice(allMoves);
+                        ArrayList<Integer> selectedMove = allMoves.get(moveChoice - 1);
+                        int toSpike = selectedMove.get(2);
+                        Board.addCheckerToSpike(spikes, toSpike, player[current_player]);
+   
                         //Removes checker from Bar
                         if (player[current_player].playerColour == "red") {
                             bar.removeRedChecker();
