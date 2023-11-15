@@ -104,9 +104,7 @@ public class Main{
                         }
                     }
 
-
-                    current_player++;
-                    current_player = current_player % 2;
+                    current_player = ++current_player % 2;
 
                 } else if (command.equals("P")) {
                     // Calculate and display both players' pip scores
