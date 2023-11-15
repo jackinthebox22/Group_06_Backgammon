@@ -86,9 +86,11 @@ public class Main{
                     if (bar.hasCheckersOfColor(player[current_player].getPlayerColour())) {
                         System.out.println("You have Checker on Bar you must move");
 
+                        //===================================================
                         int BarToSpike;
                         System.out.println("Choose Spike to move to");
                         BarToSpike = scanner.nextInt();
+                        //===================================================
 
                         Board.addCheckerToSpike(spikes, BarToSpike, player[current_player]);
                         
@@ -114,6 +116,11 @@ public class Main{
                                 int dieUsed = selectedMove.get(3);
     
                                 Board.movePiece(spikes, fromSpike, toSpike, bar);
+
+                                if (toSpike == 0) {
+                                    tray[current_player].addChecker();
+                                    tray[current_player].checkWinner();
+                                }
     
                                 if (dieUsed == 2) {
                                     nextPlayerTurn = true;

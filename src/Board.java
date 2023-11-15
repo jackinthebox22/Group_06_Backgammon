@@ -169,7 +169,7 @@ public class Board {
                 spikes[fromIndices[0]][fromIndices[1]] = null;  // If no checkers remain, remove the spike
             }
             
-            if (spikes[toIndices[0]][toIndices[1]] != null) {
+            if (spikes[toIndices[0]][toIndices[1]] != null && (toSpike != 0)) {
                 // Destination spike is not empty
                 if (spikes[toIndices[0]][toIndices[1]].getColour() != pieceToMove.getColour() && spikes[toIndices[0]][toIndices[1]].getNumCheckers() == 1) {
                     // Replace the existing checker and move the other to the bar
