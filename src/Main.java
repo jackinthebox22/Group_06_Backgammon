@@ -58,6 +58,8 @@ public class Main{
         System.out.println(player[current_player].getName() + " goes first");
         int firstLoop = 0;
 
+        dice[0] = 1;
+        dice[1] = 2;
         while (!command.equals("Q")) {
 
             Board.displayBoard(spikes, tray, player[current_player], bar);
@@ -67,7 +69,7 @@ public class Main{
                 dice = Roll.rollDice(player[current_player].getName());
             }
         
-            ArrayList<ArrayList<Integer>> allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour());
+            ArrayList<ArrayList<Integer>> allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour(), tray);
 
             command = " ";
         

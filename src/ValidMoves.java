@@ -8,7 +8,7 @@ public class ValidMoves {
 
 
 
-    public static ArrayList<ArrayList<Integer>> allMoves(int[] dice, int direction, Checker[][] spikes, String colour) {
+    public static ArrayList<ArrayList<Integer>> allMoves(int[] dice, int direction, Checker[][] spikes, String colour, Tray[] tray) {
 
         ArrayList<ArrayList<Integer>> allMoves = new ArrayList<>();
         int allmovesindex = 0;
@@ -40,7 +40,9 @@ public class ValidMoves {
                         if (moveto == 25) moveto = 0;
 
                         int[] indices = Board.convertSpikeToIndices(moveto);
-                        if(moveto >= 0 && moveto <= 24 && (moveto == 0 ||spikes[indices[0]][indices[1]] == null || spikes[indices[0]][indices[1]].getNumCheckers() == 1 || spikes[indices[0]][indices[1]].getColour().equals(colour))) {
+                        if(moveto >= 0 && moveto <= 24 &&
+                                (moveto == 0 ||spikes[indices[0]][indices[1]] == null || spikes[indices[0]][indices[1]].getNumCheckers() == 1 || spikes[indices[0]][indices[1]].getColour().equals(colour))
+                                    && !(moveto == 0 && !bearOffAllowed(spikes,direction, colour, tray))) {
 
                             allmovesrow.add(allmovesindex++);
                             allmovesrow.add(spikenumber);
@@ -65,7 +67,7 @@ public class ValidMoves {
         if(!checkNumberInColumn(allMoves, 2, 3) && checkNumberExactlyOnceInColumn(allMoves, 1, 3)){
             for(ArrayList<Integer> row : allMoves){
                 if(row.get(3) == 1) spikeindex = row.get(1);
-                System.out.println("Spikeindex" + spikeindex);
+
             }
             removeRowsWithConditions(allMoves, spikeindex, 1, 0, 3);
         }
@@ -76,7 +78,7 @@ public class ValidMoves {
     public static ArrayList<ArrayList<Integer>> barMoves(int[] dice, int direction, Checker[][] spikes, String color) {
         ArrayList<ArrayList<Integer>> barMoves = new ArrayList<>();
         int bar = (direction == 1) ? 0 : 25; // Bar position based on direction
-        System.out.println(bar);
+
         int biggerdie = dice[0];
         int smallerdie = dice[1];
         if(dice[1] > dice[0]) {
@@ -186,5 +188,25 @@ public class ValidMoves {
     public static ArrayList<ArrayList<Integer>> removeDie(ArrayList<ArrayList<Integer>> allMoves, int dieChoice){
         allMoves.removeIf(row -> row.get(3) == dieChoice);
         return allMoves;
+    }
+
+    public static boolean bearOffAllowed(Checker[][] spike,int direction, String colour, Tray[] tray){
+        boolean bearOffAllowed = false;
+        int firstSpike;
+        int numberOfCheckers = 0;
+        if(direction == 1) firstSpike = 24;
+        else firstSpike = 6;
+
+        for(int i = firstSpike; i > firstSpike - 6; i--){
+            int[] indices = Board.convertSpikeToIndices(i);
+            if(spike[indices[0]][indices[1]] != null && spike[indices[0]][indices[1]].getColour().equals(colour))
+                numberOfCheckers += spike[indices[0]][indices[1]].getNumCheckers();
+        }
+        if(tray[0].getColour().equals(colour)) numberOfCheckers += tray[0].getNumCheckers();
+        else numberOfCheckers += tray[1].getNumCheckers();
+
+        if(numberOfCheckers == 15) bearOffAllowed = true;
+
+        return bearOffAllowed;
     }
 }
