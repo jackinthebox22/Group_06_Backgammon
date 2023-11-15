@@ -151,8 +151,17 @@ public class Board {
             }
             
             if (spikes[toIndices[0]][toIndices[1]] != null) {
-                // Increment the number of checkers in the destination spike
-                spikes[toIndices[0]][toIndices[1]].setNumCheckers(spikes[toIndices[0]][toIndices[1]].getNumCheckers() + 1);
+                // Destination spike is not empty
+                if (spikes[toIndices[0]][toIndices[1]].getColour() != pieceToMove.getColour() && spikes[toIndices[0]][toIndices[1]].getNumCheckers() == 1) {
+                    // Replace the existing checker and move the other to the bar
+                    System.out.println("Move successful. Replaced checker at Spike " + toSpike + " and moved to the bar.");
+                    spikes[toIndices[0]][toIndices[1]].setNumCheckers(spikes[toIndices[0]][toIndices[1]].getNumCheckers() + 1);
+                    spikes[toIndices[0]][toIndices[1]].changeColour();
+                } else {
+                    // Increment the number of checkers in the destination spike
+                    spikes[toIndices[0]][toIndices[1]].setNumCheckers(spikes[toIndices[0]][toIndices[1]].getNumCheckers() + 1);
+                    System.out.println("Move successful. From Spike " + fromSpike + " to Spike " + toSpike);
+                }
             } else {
                 // If the destination spike is empty, create a new checker with one checker
                 spikes[toIndices[0]][toIndices[1]] = new Checker(pieceToMove.getColour(), numCheckersToMove);
