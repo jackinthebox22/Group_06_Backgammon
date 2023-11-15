@@ -168,31 +168,34 @@ public class Board {
             } else {
                 spikes[fromIndices[0]][fromIndices[1]] = null;  // If no checkers remain, remove the spike
             }
-            
-            if (spikes[toIndices[0]][toIndices[1]] != null && (toSpike != 0)) {
-                // Destination spike is not empty
-                if (spikes[toIndices[0]][toIndices[1]].getColour() != pieceToMove.getColour() && spikes[toIndices[0]][toIndices[1]].getNumCheckers() == 1) {
-                    // Replace the existing checker and move the other to the bar
-                    System.out.println("Move successful. Replaced checker at Spike " + toSpike + " and moved to the bar.");
-                    spikes[toIndices[0]][toIndices[1]].changeColour();
 
-                    // Update the bar counts based on the color of the moved checker
-                    if (pieceToMove.getColour().equals("red")) {
-                        bar.addBlueChecker(); // add one checker of opposite color to the Bar
+            if (toSpike != 0) {
+                if (spikes[toIndices[0]][toIndices[1]] != null) {
+                    // Destination spike is not empty
+                    if (spikes[toIndices[0]][toIndices[1]].getColour() != pieceToMove.getColour() && spikes[toIndices[0]][toIndices[1]].getNumCheckers() == 1) {
+                        // Replace the existing checker and move the other to the bar
+                        System.out.println("Move successful. Replaced checker at Spike " + toSpike + " and moved to the bar.");
+                        spikes[toIndices[0]][toIndices[1]].changeColour();
+    
+                        // Update the bar counts based on the color of the moved checker
+                        if (pieceToMove.getColour().equals("red")) {
+                            bar.addBlueChecker(); // add one checker of opposite color to the Bar
+                        } else {
+                            bar.addRedChecker(); // add one checker of opposite color to the Bar
+                        }
+    
+                        System.out.println("Moved checker of color " + pieceToMove.getColour() + " to the bar.");
                     } else {
-                        bar.addRedChecker(); // add one checker of opposite color to the Bar
+                        // Increment the number of checkers in the destination spike
+                        spikes[toIndices[0]][toIndices[1]].setNumCheckers(spikes[toIndices[0]][toIndices[1]].getNumCheckers() + 1);
+                        System.out.println("Move successful. From Spike " + fromSpike + " to Spike " + toSpike);
                     }
-
-                    System.out.println("Moved checker of color " + pieceToMove.getColour() + " to the bar.");
                 } else {
-                    // Increment the number of checkers in the destination spike
-                    spikes[toIndices[0]][toIndices[1]].setNumCheckers(spikes[toIndices[0]][toIndices[1]].getNumCheckers() + 1);
-                    System.out.println("Move successful. From Spike " + fromSpike + " to Spike " + toSpike);
+                    // If the destination spike is empty, create a new checker with one checker
+                    spikes[toIndices[0]][toIndices[1]] = new Checker(pieceToMove.getColour(), numCheckersToMove);
                 }
-            } else {
-                // If the destination spike is empty, create a new checker with one checker
-                spikes[toIndices[0]][toIndices[1]] = new Checker(pieceToMove.getColour(), numCheckersToMove);
-            }
+
+            }   
 
         } else {
             System.out.println("Invalid move: Source spike is empty.");
