@@ -136,6 +136,21 @@ public class Board {
         }
     }
 
+    public static void addCheckerToSpike(Checker[][] spikes, int toSpike, PlayerData currentPlayer) {
+        int[] toIndices = convertSpikeToIndices(toSpike);
+    
+        // Add one checker to the specified spike with the color of the current player
+        if (spikes[toIndices[0]][toIndices[1]] != null) {
+            // Spike is not empty
+            spikes[toIndices[0]][toIndices[1]].setNumCheckers(spikes[toIndices[0]][toIndices[1]].getNumCheckers() + 1);
+            System.out.println("Added checker to Spike " + toSpike + " with color " + currentPlayer.getPlayerColour());
+        } else {
+            // If the spike is empty, create a new checker with the color of the current player and one checker
+            spikes[toIndices[0]][toIndices[1]] = new Checker(currentPlayer.getPlayerColour(), 1);
+            System.out.println("Added checker to Spike " + toSpike + " with color " + currentPlayer.getPlayerColour());
+        }
+    }
+
     public static void movePiece(Checker[][] spikes, int fromSpike, int toSpike, Bar bar) {
         int[] fromIndices = convertSpikeToIndices(fromSpike);
         int[] toIndices = convertSpikeToIndices(toSpike);
