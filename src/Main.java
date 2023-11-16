@@ -58,9 +58,6 @@ public class Main{
         System.out.println(player[current_player].getName() + " goes first");
         int firstLoop = 0;
 
-        dice[0] = 3;
-        dice[1] = 3;
-
         while (!command.equals("Q")) {
 
             Board.displayBoard(spikes, tray, player[current_player], bar);
@@ -93,6 +90,7 @@ public class Main{
                         boolean nextPlayerTurn = false;
                         ArrayList<ArrayList<Integer>> barMoves = ValidMoves.barMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour());
                         ArrayList<ArrayList<Integer>> allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour(), tray);
+                        int turns = 0;
 
                         while (bar.hasCheckersOfColor(player[current_player].getPlayerColour()) && !nextPlayerTurn) {
                             System.out.println("You have Checker on Bar you must move");
@@ -124,6 +122,7 @@ public class Main{
                                 allMoves = ValidMoves.removeDie(allMoves, 2);
                                 barMoves = ValidMoves.removeDie(barMoves, dieUsed);
                                 barMoves = ValidMoves.removeDie(barMoves, 2);
+                                turns++;
 
                             }
                             if (barMoves.isEmpty()) {
@@ -134,8 +133,6 @@ public class Main{
                             }
 
                         }
-                        int turns = 0;
-
                         while (!nextPlayerTurn) {
 
 
