@@ -57,6 +57,7 @@ public class Main{
         }
         System.out.println(player[current_player].getName() + " goes first");
         int firstLoop = 0;
+     
 
         while (!command.equals("Q")) {
 
@@ -121,6 +122,7 @@ public class Main{
                                 allMoves = ValidMoves.removeDie(allMoves, 2);
                                 barMoves = ValidMoves.removeDie(barMoves, dieUsed);
                                 barMoves = ValidMoves.removeDie(barMoves, 2);
+
                             }
                             if (barMoves.isEmpty()) {
                                 nextPlayerTurn = true;
@@ -153,6 +155,8 @@ public class Main{
                                     nextPlayerTurn = true;
                                     if(allowedTurns == 2) Board.displayBoard(spikes, tray, player[current_player], bar);
                                 } else {
+                                    allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour(), tray);
+
                                     allMoves = ValidMoves.removeDie(allMoves, dieUsed);
                                     allMoves = ValidMoves.removeDie(allMoves, 2);
                                     if (allMoves.isEmpty() && (turnsUsed == allowedTurns)) {
