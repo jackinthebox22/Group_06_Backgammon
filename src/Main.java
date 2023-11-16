@@ -11,9 +11,17 @@ public class Main{
     private static int getUserMoveChoice(ArrayList<ArrayList<Integer>> moves) {
         Scanner scanner = new Scanner(System.in);
     
-        System.out.println("Choose a move (1-" + moves.size() + "): ");
-        int choice = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
+        int choice;
+        do {
+            System.out.println("Choose a move (1-" + moves.size() + "): ");
+            while (!scanner.hasNextInt()) {
+                System.out.println("Invalid input. Please enter a valid number.");
+                scanner.next(); // Consume the invalid input
+            }
+            choice = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+        } while (choice < 1 || choice > moves.size());
+    
         return choice;
     }
     
