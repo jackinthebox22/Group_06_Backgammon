@@ -57,7 +57,7 @@ public class Main{
         }
         System.out.println(player[current_player].getName() + " goes first");
         int firstLoop = 0;
-        
+
         while (!command.equals("Q")) {
 
             Board.displayBoard(spikes, tray, player[current_player], bar);
@@ -91,8 +91,13 @@ public class Main{
                         ArrayList<ArrayList<Integer>> barMoves = ValidMoves.barMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour());
                         ArrayList<ArrayList<Integer>> allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour(), tray);
 
-                        while (bar.hasCheckersOfColor(player[current_player].getPlayerColour()) && !barMoves.isEmpty() && !nextPlayerTurn) {
+                        while (bar.hasCheckersOfColor(player[current_player].getPlayerColour()) && !nextPlayerTurn) {
                             System.out.println("You have Checker on Bar you must move");
+                            if(barMoves.isEmpty()){
+                                System.out.println("You have no available moves.");
+                                nextPlayerTurn = true;
+                                break;
+                            }
 
                             ValidMoves.printMoves(barMoves);
 
@@ -142,11 +147,11 @@ public class Main{
 
                                 if (toSpike == 0) {
                                     tray[current_player].addChecker();
-                                    tray[current_player].checkWinner();
                                 }
 
                                 if (dieUsed == 2) {
                                     nextPlayerTurn = true;
+                                    if(allowedTurns == 2) Board.displayBoard(spikes, tray, player[current_player], bar);
                                 } else {
                                     allMoves = ValidMoves.removeDie(allMoves, dieUsed);
                                     allMoves = ValidMoves.removeDie(allMoves, 2);
@@ -163,6 +168,10 @@ public class Main{
                                         Board.displayBoard(spikes, tray, player[current_player], bar);
                                     }
                                 }
+                            }
+                            if(tray[current_player].getNumCheckers() == 15) {
+                                Board.displayBoard(spikes, tray, player[current_player], bar);
+                                tray[current_player].checkWinner();
                             }
                         }
                         turnsUsed++;
