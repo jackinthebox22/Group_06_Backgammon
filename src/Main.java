@@ -57,7 +57,9 @@ public class Main{
         }
         System.out.println(player[current_player].getName() + " goes first");
         int firstLoop = 0;
-     
+
+        dice[0] = 3;
+        dice[1] = 3;
 
         while (!command.equals("Q")) {
 
@@ -132,7 +134,11 @@ public class Main{
                             }
 
                         }
+                        int turns = 0;
+
                         while (!nextPlayerTurn) {
+
+
                             ValidMoves.printMoves(allMoves);
 
                             if (allMoves.isEmpty()) {
@@ -159,11 +165,16 @@ public class Main{
 
                                     allMoves = ValidMoves.removeDie(allMoves, dieUsed);
                                     allMoves = ValidMoves.removeDie(allMoves, 2);
+
+                                    if(turns == 1){
+                                        allMoves = ValidMoves.removeDie(allMoves, ++dieUsed % 2);
+                                    }
+
                                     if (allMoves.isEmpty() && (turnsUsed == allowedTurns)) {
                                         nextPlayerTurn = true;
                                         System.out.println("No more moves. Ending " + player[current_player].getName() + "'s turn.");
                                     }
-                                    else if (allMoves.isEmpty() && (turnsUsed < allowedTurns)){
+                                    else if (allMoves.isEmpty() && turnsUsed < allowedTurns){
                                         nextPlayerTurn = true;
                                         System.out.println("This is your second turn");
                                         Board.displayBoard(spikes, tray, player[current_player], bar);
@@ -177,6 +188,7 @@ public class Main{
                                 Board.displayBoard(spikes, tray, player[current_player], bar);
                                 tray[current_player].checkWinner();
                             }
+                            turns++;
                         }
                         turnsUsed++;
                     }
