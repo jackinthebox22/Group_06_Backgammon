@@ -65,10 +65,7 @@ public class Main{
         }
         System.out.println(player[current_player].getName() + " goes first");
         int firstLoop = 0;
-
-        dice[0] = 3;
-        dice[1] = 3;
-
+        
         while (!command.equals("Q")) {
 
             Board.displayBoard(spikes, tray, player[current_player], bar);
