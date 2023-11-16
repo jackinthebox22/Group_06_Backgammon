@@ -75,7 +75,7 @@ public class ValidMoves {
         return allMoves;
     }
 
-    public static ArrayList<ArrayList<Integer>> barMoves(int[] dice, int direction, Checker[][] spikes, String color) {
+    public static ArrayList<ArrayList<Integer>> barMoves(int[] dice, int direction, Checker[][] spikes, String colour) {
         ArrayList<ArrayList<Integer>> barMoves = new ArrayList<>();
         int bar = (direction == 1) ? 0 : 25; // Bar position based on direction
 
@@ -93,18 +93,22 @@ public class ValidMoves {
 
             if(i < 2) moveTo = bar + dice[i] * direction;
                 // Valid moves only onto the opponent's home board
+            int[] indices = Board.convertSpikeToIndices(moveTo);
+            if(moveTo >= 0 && moveTo <= 24 &&
+                    (moveTo == 0 ||spikes[indices[0]][indices[1]] == null || spikes[indices[0]][indices[1]].getNumCheckers() == 1 || spikes[indices[0]][indices[1]].getColour().equals(colour))) {
                 ArrayList<Integer> barMoveRow = new ArrayList<>();
                 barMoveRow.add(i); // Index number
                 barMoveRow.add(bar); // Move from
                 barMoveRow.add(moveTo); // Move to
 
-                if(biggerdie == smallerdie && Math.abs(bar-moveTo) != 2*biggerdie){
+                if (biggerdie == smallerdie && Math.abs(bar - moveTo) != 2 * biggerdie) {
                     barMoveRow.add(samesizedie++ % 2);
-                }
-                else if(Math.abs(bar-moveTo) == biggerdie) barMoveRow.add(1); //well need the bigger die smaller die values for calculations later
-                else if (Math.abs(bar-moveTo) == smallerdie) barMoveRow.add(0);
+                } else if (Math.abs(bar - moveTo) == biggerdie)
+                    barMoveRow.add(1); //well need the bigger die smaller die values for calculations later
+                else if (Math.abs(bar - moveTo) == smallerdie) barMoveRow.add(0);
                 else barMoveRow.add(2);
                 barMoves.add(barMoveRow);
+            }
         }
         return barMoves;
     }
