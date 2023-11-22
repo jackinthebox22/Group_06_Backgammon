@@ -213,9 +213,21 @@ public class Main{
                     System.out.println("H = Help");
                     System.out.println("M = Move");
                     System.out.println("P = Calculate Pip Scores");
+                    System.out.println("D = Change Dice Rolls");
                 } else if (command.equals("Q")) {
                     System.out.println("Quitting the game...");
                     System.exit(0);
+                } else if (command.equals("D")) {
+                    // Allow the user to manually change the dice roll
+                    System.out.println("Enter the new dice values (e.g., 3 4):");
+                    int newDice1 = scanner.nextInt();
+                    int newDice2 = scanner.nextInt();
+
+                    dice[0] = newDice1;
+                    dice[1] = newDice2;
+                    scanner.nextLine(); 
+
+                    System.out.println("Dice values changed to: " + dice[0] + ", " + dice[1]);
                 } else {
                     System.out.println("Command entered is invalid");
                 }
