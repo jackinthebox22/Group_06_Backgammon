@@ -30,6 +30,7 @@ public class Bar extends Checker {
         }
     }
 
+
     public void removeBlueChecker() {
         if (this.blueCheckers > 0) {
             this.blueCheckers--;

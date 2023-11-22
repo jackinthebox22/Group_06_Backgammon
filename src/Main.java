@@ -100,6 +100,11 @@ public class Main{
                         ArrayList<ArrayList<Integer>> allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour(), tray);
                         int turns = 0;
 
+                        if(player[current_player].getPlayerColour().equals("blue") && bar.getBlueCheckers() == 2)
+                            barMoves = ValidMoves.removeDie(barMoves, 2);
+                        else if(player[current_player].getPlayerColour().equals("red") && bar.getRedCheckers() == 2)
+                            barMoves = ValidMoves.removeDie(barMoves, 2);
+
                         while (bar.hasCheckersOfColor(player[current_player].getPlayerColour()) && !nextPlayerTurn) {
                             System.out.println("You have Checker on Bar you must move");
                             if(barMoves.isEmpty()){
@@ -116,7 +121,10 @@ public class Main{
                             int toSpike = selectedMove.get(2);
                             int dieUsed = selectedMove.get(3);
                             System.out.println(toSpike);
-                            Board.addCheckerToSpike(spikes, toSpike, player[current_player]);
+
+                            int[] indices = Board.convertSpikeToIndices(toSpike);
+
+                            Board.addCheckerToSpike(spikes, toSpike, player[current_player], bar);
 
                             //Removes checker from Bar
                             if (player[current_player].playerColour == "red") {
@@ -126,20 +134,30 @@ public class Main{
                             }
                             if (dieUsed == 2) nextPlayerTurn = true;
                             else {
+                                allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour(), tray);
+
                                 allMoves = ValidMoves.removeDie(allMoves, dieUsed);
                                 allMoves = ValidMoves.removeDie(allMoves, 2);
                                 barMoves = ValidMoves.removeDie(barMoves, dieUsed);
                                 barMoves = ValidMoves.removeDie(barMoves, 2);
-                                turns++;
 
+
+                                if(turns == 1){
+                                    allMoves = ValidMoves.removeDie(allMoves, ++dieUsed % 2);
+                                }
                             }
-                            if (barMoves.isEmpty()) {
+
+                            if (barMoves.isEmpty() && (allMoves.isEmpty() || turns == 2) ) {
                                 nextPlayerTurn = true;
                                 System.out.println("No more moves. Ending " + player[current_player].getName() + "'s turn.");
-                            } else {
+                            } else if (barMoves.isEmpty() && !allMoves.isEmpty()){
+                                Board.displayBoard(spikes, tray, player[current_player], bar);
+                                break;
+                            }
+                            else{
                                 Board.displayBoard(spikes, tray, player[current_player], bar);
                             }
-
+                            turns++;
                         }
                         while (!nextPlayerTurn) {
 
