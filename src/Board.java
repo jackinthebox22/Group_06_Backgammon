@@ -1,4 +1,5 @@
 import javax.xml.namespace.QName;
+import java.util.Objects;
 
 public class Board {
 
@@ -80,7 +81,6 @@ public class Board {
                     System.out.print("  |");
                 }
                 if (spikes[i][j] != null) {
-                    String checkerSymbol = spikes[i][j].getColourCode();
                     int numCheckers = spikes[i][j].getNumCheckers();
                     System.out.printf(spikes[i][j].getColourCode() + " %2s " + reset + "|", numCheckers); // Print number of checkers and checker symbol
                 } else {
@@ -120,7 +120,6 @@ public class Board {
             indices[1] = 12 - spikeNumber;
         } else if (spikeNumber >= 13 && spikeNumber <= 24) {
             // Top row (spikes 13-24)
-            indices[0] = 0;
             indices[1] = spikeNumber - 13;
         } else {
             //System.out.println("Invalid spike number.");
@@ -187,7 +186,7 @@ public class Board {
             if (toSpike != 0) {
                 if (spikes[toIndices[0]][toIndices[1]] != null) {
                     // Destination spike is not empty
-                    if (spikes[toIndices[0]][toIndices[1]].getColour() != pieceToMove.getColour() && spikes[toIndices[0]][toIndices[1]].getNumCheckers() == 1) {
+                    if (!Objects.equals(spikes[toIndices[0]][toIndices[1]].getColour(), pieceToMove.getColour()) && spikes[toIndices[0]][toIndices[1]].getNumCheckers() == 1) {
                         // Replace the existing checker and move the other to the bar
                         System.out.println("Move successful. Replaced checker at Spike " + toSpike + " and moved to the bar.");
                         spikes[toIndices[0]][toIndices[1]].changeColour();
