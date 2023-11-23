@@ -57,11 +57,11 @@ public class Main{
         System.out.println(player[0].getName() + " you are red. " + player[1].getName() + " you are blue");
 
         // RESET BACK TO HERE
-        int matchesToPlay = getUserInputMatches();
+        int pointsToPlay = getUserInputMatches();
 
         int currentMatchNum = 0;
         int matchNum = 0;
-        while(matchNum < matchesToPlay) {
+        while(player[1].getgameScore() < pointsToPlay || player[0].getgameScore() < pointsToPlay) {
             currentMatchNum = matchNum;
 
             Checker[][] spikes = Board.Spikes();
@@ -241,22 +241,28 @@ public class Main{
                                         System.out.println(player[current_player].getName() + " Won this Match, Backgammon");
                                         matchNum++;
                                         player[current_player].updategameScore(3);
+                                        System.out.println(player[current_player].getName() + " is on " + player[current_player].getgameScore() + " game points" );
+                                        System.out.println(player[((current_player + 1) % 2)].getName() + " is on " + player[((current_player + 1 % 2))].getgameScore() + " game points" );
 
                                     } else if (tray[((current_player + 1) % 2)].getNumCheckers() == 0) {
                                         System.out.println(player[current_player].getName() + " Won this Match, gammon");
                                         matchNum++;
                                         player[current_player].updategameScore(2);
+                                        System.out.println(player[current_player].getName() + " is on " + player[current_player].getgameScore() + " game points" );
+                                        System.out.println(player[((current_player + 1) % 2)].getName() + " is on " + player[((current_player + 1) % 2)].getgameScore() + " game points" );
 
                                     } else {
                                         System.out.println(player[current_player].getName() + " Won this Match, Single");
                                         matchNum++;
                                         player[current_player].updategameScore(1);
+                                        System.out.println(player[current_player].getName() + " is on " + player[current_player].getgameScore() + " game points" );
+                                        System.out.println(player[((current_player + 1) % 2)].getName() + " is on " + player[((current_player + 1) % 2)].getgameScore() + " game points" );
 
                                     }
 
 
-                                    if (matchNum == matchesToPlay) {
-                                        System.out.println(player[current_player].getName() + " Won The whole Game");
+                                    if (player[current_player].getgameScore() >= pointsToPlay) {
+                                        System.out.println(player[current_player].getName() + " Won The whole Game with " + player[current_player].getgameScore() + " Points");
                                         System.exit(0);
                                     }
                                 }
