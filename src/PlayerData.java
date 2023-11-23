@@ -4,11 +4,13 @@ public class PlayerData {
     public final String name;
     public String playerColour;
     public int pipScore;
+    public int gameScore;
 
     public PlayerData(String name, String playerColour){
         this.name = name;
         this.playerColour = playerColour;
         this.pipScore = 167;  // Initial pip count for each player
+        this.gameScore = 0;
     }
 
     public String getName() {return name;}
@@ -43,6 +45,15 @@ public class PlayerData {
     public int getPipScore() {
         return pipScore;
     }
+
+    public int getgameScore() {
+        return gameScore;
+    }
+
+    public void updategameScore(int points) {
+        this.gameScore = gameScore + points;
+    }
+
 
     public void updatePipScore(int newPipScore) {
         this.pipScore = newPipScore;

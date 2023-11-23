@@ -126,6 +126,7 @@ public class Main{
                             ArrayList<ArrayList<Integer>> barMoves = ValidMoves.barMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour());
                             ArrayList<ArrayList<Integer>> allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour(), tray);
                             int turns = 0;
+                            
 
                             if (player[current_player].getPlayerColour().equals("blue") && bar.getBlueCheckers() == 2)
                                 barMoves = ValidMoves.removeDie(barMoves, 2);
@@ -232,14 +233,27 @@ public class Main{
                                         }
                                     }
                                 }
-//                            if(tray[current_player].getNumCheckers() == 15) {
-//                                Board.displayBoard(spikes, tray, player[current_player], bar);
-//                                tray[current_player].checkWinner();
-//                            }
+
                                 if (tray[current_player].getNumCheckers() == 15) {
                                     Board.displayBoard(spikes, tray, player[current_player], bar);
-                                    System.out.println(player[current_player].getName() + " Won this Match");
-                                    matchNum++;
+
+                                    if (tray[((current_player + 1) % 2)].getNumCheckers() == 0 && bar.hasCheckersOfColor(player[((current_player + 1) % 2)].getPlayerColour())) {
+                                        System.out.println(player[current_player].getName() + " Won this Match, Backgammon");
+                                        matchNum++;
+                                        player[current_player].updategameScore(3);
+
+                                    } else if (tray[((current_player + 1) % 2)].getNumCheckers() == 0) {
+                                        System.out.println(player[current_player].getName() + " Won this Match, gammon");
+                                        matchNum++;
+                                        player[current_player].updategameScore(2);
+
+                                    } else {
+                                        System.out.println(player[current_player].getName() + " Won this Match, Single");
+                                        matchNum++;
+                                        player[current_player].updategameScore(1);
+
+                                    }
+
 
                                     if (matchNum == matchesToPlay) {
                                         System.out.println(player[current_player].getName() + " Won The whole Game");
