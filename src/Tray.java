@@ -1,10 +1,9 @@
 public class Tray extends Checker{
-    private int numCheckers;
-    private String colour;
+    private final String colour;
 
     public Tray(String colour, int numCheckers) {
         super(colour, numCheckers);
-        this.numCheckers = 0;
+        int numCheckers1 = 0;
         this.colour = colour;
     }
 

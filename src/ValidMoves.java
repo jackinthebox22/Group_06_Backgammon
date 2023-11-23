@@ -1,7 +1,4 @@
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.HashSet;
 
 
 public class ValidMoves {
@@ -192,9 +189,8 @@ public class ValidMoves {
         }
     }
 
-    public static ArrayList<ArrayList<Integer>> removeDie(ArrayList<ArrayList<Integer>> allMoves, int dieChoice){
+    public static void removeDie(ArrayList<ArrayList<Integer>> allMoves, int dieChoice){
         allMoves.removeIf(row -> row.get(3) == dieChoice);
-        return allMoves;
     }
 
     public static boolean bearOffAllowed(Checker[][] spike,int direction, String colour, Tray[] tray){
