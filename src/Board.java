@@ -24,13 +24,16 @@ public class Board {
         spikes[1][6] = new Checker("blue", 5);  // Spike 6
         spikes[1][11] = new Checker("red", 2);  // Spike 1
 
+        // Use this for debugging winning Game
+        // spikes[1][6] = new Checker("blue", 1);  
+
         return spikes;
     }
     public static Tray[] Tray(){
         tray = new Tray[2];
 
         tray[0] = new Tray("red", 0);
-        tray[1] = new Tray("blue", 0);
+        tray[1] = new Tray("blue", 0); // change this to 14 for winning game set up
 
         return tray;
     }
