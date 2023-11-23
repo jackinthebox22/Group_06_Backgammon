@@ -152,7 +152,6 @@ public class Main{
                                 System.out.println("No more moves. Ending " + player[current_player].getName() + "'s turn.");
                             } else if (barMoves.isEmpty() && !allMoves.isEmpty()){
                                 Board.displayBoard(spikes, tray, player[current_player], bar);
-                                turns++;
                                 break;
                             }
                             else{
