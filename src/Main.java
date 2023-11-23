@@ -71,7 +71,7 @@ public class Main {
             Bar bar = new Bar();
 
             System.out.println("Match: " + (matchNum + 1));
-            System.out.println("Press Any Key to play:");
+            System.out.println("Press <Enter> to play:");
             command = scanner.nextLine().toUpperCase(); // Initialize the variable with user input
 
             // rolling to start
@@ -136,10 +136,11 @@ public class Main {
                     if (command.equals("M")) {
                         while (allowedTurns >= turnsUsed) {
                             boolean nextPlayerTurn = false;
-                            ArrayList<ArrayList<Integer>> barMoves = ValidMoves.barMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour());
-                            ArrayList<ArrayList<Integer>> allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour(), tray);
                             int turns = 0;
-                            
+
+                            ArrayList<ArrayList<Integer>> barMoves = ValidMoves.barMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour());
+                            ArrayList<ArrayList<Integer>> allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour(), tray, -1);
+
 
                             if (player[current_player].getPlayerColour().equals("blue") && bar.getBlueCheckers() == 2)
                                 barMoves = ValidMoves.removeDie(barMoves, 2);
@@ -175,7 +176,7 @@ public class Main {
                                 }
                                 if (dieUsed == 2) nextPlayerTurn = true;
                                 else {
-                                    allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour(), tray);
+                                    allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour(), tray, dieUsed);
 
                                     allMoves = ValidMoves.removeDie(allMoves, dieUsed);
                                     allMoves = ValidMoves.removeDie(allMoves, 2);
@@ -225,7 +226,7 @@ public class Main {
                                         if (allowedTurns == 2)
                                             Board.displayBoard(spikes, tray, player[current_player], bar);
                                     } else {
-                                        allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour(), tray);
+                                        allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour(), tray, dieUsed);
 
                                         allMoves = ValidMoves.removeDie(allMoves, dieUsed);
                                         allMoves = ValidMoves.removeDie(allMoves, 2);
@@ -301,6 +302,7 @@ public class Main {
                         System.out.println("C = Change Dice Rolls");
                         System.out.println("D = Offer a Double");
                         System.out.println("S = Score");
+                        System.out.println("B = Display Board");
                     } else if (command.equals("D")) {
                         if (player[current_player].getdoubleOwnership() == true) {
                             doublingCube *= 2; // Double the value of the doubling cube
@@ -355,6 +357,8 @@ public class Main {
                         System.out.println(player[(current_player + 1) % 2].getName() + ": is on " + player[(current_player + 1) % 2].getgameScore()+ " points.");
                         System.out.println("———————————————————————————");
 
+                    } else if (command.equals("B")) {
+                        Board.displayBoard(spikes, tray, player[current_player], bar);
                     } else {
                         System.out.println("Command entered is invalid");
                     }

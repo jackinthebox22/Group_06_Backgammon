@@ -8,7 +8,7 @@ public class ValidMoves {
 
 
 
-    public static ArrayList<ArrayList<Integer>> allMoves(int[] dice, int direction, Checker[][] spikes, String colour, Tray[] tray) {
+    public static ArrayList<ArrayList<Integer>> allMoves(int[] dice, int direction, Checker[][] spikes, String colour, Tray[] tray, int dieUsed) {
 
         ArrayList<ArrayList<Integer>> allMoves = new ArrayList<>();
         int allmovesindex = 0;
@@ -70,10 +70,11 @@ public class ValidMoves {
 
             }
 
-            //int positionOfSpike = allMoves.get(spikeindex).get(1);
-            //int[] indices = Board.convertSpikeToIndices(positionOfSpike);
 
-            //if(spikes[indices[0]][indices[1]].getNumCheckers() == 1)
+            int[] indices = Board.convertSpikeToIndices(spikeindex);
+            System.out.println("All moves size = "+ allMoves.size());
+            System.out.println(allMoves);
+            if(spikes[indices[0]][indices[1]].getNumCheckers() == 1 && allMoves.size() != 1 && dieUsed != 1)
                 removeRowsWithConditions(allMoves, spikeindex, 1, 0, 3);
 
         }

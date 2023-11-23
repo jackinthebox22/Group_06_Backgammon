@@ -17,15 +17,18 @@ public class Board {
         }
 
        // Starting Spikes
-       spikes[0][0] = new Checker("blue", 5);  // Spike 13
-       spikes[0][4] = new Checker("red", 3);   // Spike 17
-       spikes[0][6] = new Checker("red", 5);   // Spike 19
-       spikes[0][11] = new Checker("blue", 2); // Spike 24
-       spikes[1][0] = new Checker("red", 5);   // Spike 12
-       spikes[1][4] = new Checker("blue", 3);  // Spike 8
-       spikes[1][6] = new Checker("blue", 5);  // Spike 6
-       spikes[1][11] = new Checker("red", 2);  // Spike 1
-
+//       spikes[0][0] = new Checker("blue", 5);  // Spike 13
+//       spikes[0][4] = new Checker("red", 3);   // Spike 17
+//       spikes[0][6] = new Checker("red", 5);   // Spike 19
+//       spikes[0][11] = new Checker("blue", 2); // Spike 24
+//       spikes[1][0] = new Checker("red", 5);   // Spike 12
+//       spikes[1][4] = new Checker("blue", 3);  // Spike 8
+//       spikes[1][6] = new Checker("blue", 5);  // Spike 6
+//       spikes[1][11] = new Checker("red", 2);  // Spike 1
+        spikes[1][0] = new Checker("red", 2);
+        spikes[1][6] = new Checker("blue", 1);
+        spikes[1][11] = new Checker("red", 2);
+        spikes[1][7] = new Checker("blue", 1);
         // spikes[1][6] = new Checker("blue", 1);  // Spike 6
 
         return spikes;
@@ -35,7 +38,7 @@ public class Board {
         tray = new Tray[2];
 
         tray[0] = new Tray("red", 0);
-        tray[1] = new Tray("blue", 0);
+        tray[1] = new Tray("blue", 13);
 
         return tray;
     }
@@ -147,7 +150,7 @@ public class Board {
 
     public static void addCheckerToSpike(Checker[][] spikes, int toSpike, PlayerData currentPlayer, Bar bar) {
         int[] toIndices = convertSpikeToIndices(toSpike);
-        if(spikes[toIndices[0]][toIndices[1]] != null && spikes[toIndices[0]][toIndices[1]].getNumCheckers() == 1) {
+        if(spikes[toIndices[0]][toIndices[1]] != null && spikes[toIndices[0]][toIndices[1]].getNumCheckers() == 1 && !currentPlayer.playerColour.equals(spikes[toIndices[0]][toIndices[1]].getColour())) {
             spikes[toIndices[0]][toIndices[1]].changeColour();
             spikes[toIndices[0]][toIndices[1]].setNumCheckers(0);
 
