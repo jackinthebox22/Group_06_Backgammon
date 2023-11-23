@@ -118,7 +118,7 @@ public class Main {
                         System.out.println("You rolled a double. You get 4 moves.");
                         allowedTurns = 2;
                     }
-                    System.out.println("Enter Command:");
+                    System.out.println("Enter Command (H for List of Commands):");
                     command = scanner.nextLine().toUpperCase();
                     int moveChoice;
                     // Inside the "M" block in the main method
@@ -285,10 +285,11 @@ public class Main {
 
                     } else if (command.equals("H")) {
                         System.out.println("Lists of Commands are:");
-                        System.out.println("H = Help");
                         System.out.println("M = Move");
                         System.out.println("P = Calculate Pip Scores");
-                        System.out.println("D = Change Dice Rolls");
+                        System.out.println("C = Change Dice Rolls");
+                        System.out.println("D = Offer a Double");
+                        System.out.println("S = Score");
                     } else if (command.equals("D")) {
                         if (player[current_player].getdoubleOwnership() == true) {
                             doublingCube *= 2; // Double the value of the doubling cube
@@ -335,6 +336,14 @@ public class Main {
                         scanner.nextLine();
 
                         System.out.println("Dice values changed to: " + dice[0] + ", " + dice[1]);
+                    } else if (command.equals("S")) {
+                        System.out.println("———————————————————————————");
+                        System.out.println("Game Score:");
+                        System.out.println("Playing to " + pointsToPlay );
+                        System.out.println(player[current_player].getName() + ": is on " + player[current_player].getgameScore()+ " points.");
+                        System.out.println(player[(current_player + 1) % 2].getName() + ": is on " + player[(current_player + 1) % 2].getgameScore()+ " points.");
+                        System.out.println("———————————————————————————");
+
                     } else {
                         System.out.println("Command entered is invalid");
                     }

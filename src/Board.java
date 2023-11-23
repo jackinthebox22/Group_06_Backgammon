@@ -30,7 +30,7 @@ public class Board {
 
         return spikes;
     }
-    
+
     public static Tray[] Tray(){
         tray = new Tray[2];
 
@@ -45,7 +45,7 @@ public class Board {
         // Initializing reset string to reset the colour output to the terminal
         String reset = "\u001B[0m";
 
-        // Print the current players game score
+        // Print the players game score
         System.out.println(currentPlayer.getName() + "'s game Score: " + currentPlayer.getgameScore());
 
         // Print the current player's pip score
