@@ -139,7 +139,7 @@ public class Board {
 
     public static void addCheckerToSpike(Checker[][] spikes, int toSpike, PlayerData currentPlayer, Bar bar) {
         int[] toIndices = convertSpikeToIndices(toSpike);
-        if(spikes[toIndices[0]][toIndices[1]] != null && spikes[toIndices[0]][toIndices[1]].getNumCheckers() == 1) {
+        if(spikes[toIndices[0]][toIndices[1]] != null && spikes[toIndices[0]][toIndices[1]].getNumCheckers() == 1 && !spikes[toIndices[0]][toIndices[1]].getColour().equals(currentPlayer.getPlayerColour())) {
             spikes[toIndices[0]][toIndices[1]].changeColour();
             spikes[toIndices[0]][toIndices[1]].setNumCheckers(0);
 
