@@ -67,16 +67,12 @@ public class ValidMoves {
         if(!checkNumberInColumn(allMoves, 2, 3) && checkNumberExactlyOnceInColumn(allMoves, 1, 3)){
             for(ArrayList<Integer> row : allMoves){
                 if(row.get(3) == 1) spikeindex = row.get(1);
-
             }
 
-
             int[] indices = Board.convertSpikeToIndices(spikeindex);
-            System.out.println("All moves size = "+ allMoves.size());
-            System.out.println(allMoves);
+
             if(spikes[indices[0]][indices[1]].getNumCheckers() == 1 && allMoves.size() != 1 && dieUsed != 1)
                 removeRowsWithConditions(allMoves, spikeindex, 1, 0, 3);
-
         }
 
         return allMoves;

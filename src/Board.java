@@ -26,7 +26,7 @@ public class Board {
        spikes[1][6] = new Checker("blue", 5);  // Spike 6
        spikes[1][11] = new Checker("red", 2);  // Spike 1
 
-        // spikes[1][6] = new Checker("blue", 1);  // Spike 6
+         //spikes[1][6] = new Checker("blue", 1);  // Spike 6
 
         return spikes;
     }
@@ -35,7 +35,7 @@ public class Board {
         tray = new Tray[2];
 
         tray[0] = new Tray("red", 0);
-        tray[1] = new Tray("blue", 13);
+        tray[1] = new Tray("blue", 0);
 
         return tray;
     }
