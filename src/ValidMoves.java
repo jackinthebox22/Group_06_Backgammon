@@ -69,11 +69,13 @@ public class ValidMoves {
                 if(row.get(3) == 1) spikeindex = row.get(1);
 
             }
+
             //int positionOfSpike = allMoves.get(spikeindex).get(1);
             //int[] indices = Board.convertSpikeToIndices(positionOfSpike);
 
             //if(spikes[indices[0]][indices[1]].getNumCheckers() == 1)
                 removeRowsWithConditions(allMoves, spikeindex, 1, 0, 3);
+
         }
 
         return allMoves;
