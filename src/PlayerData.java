@@ -5,16 +5,23 @@ public class PlayerData {
     public String playerColour;
     public int pipScore;
     public int gameScore;
+    public boolean doubleOwnership;
 
     public PlayerData(String name, String playerColour){
         this.name = name;
         this.playerColour = playerColour;
         this.pipScore = 167;  // Initial pip count for each player
         this.gameScore = 0;
+        this.doubleOwnership = true;
     }
 
     public String getName() {return name;}
 
+    public void setdoubleOwnership(boolean value) {
+        this.doubleOwnership = value;
+    }
+
+    public boolean getdoubleOwnership (){return doubleOwnership;}
 
     public String getPlayerColour(){return playerColour;}
 

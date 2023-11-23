@@ -290,25 +290,35 @@ public class Main {
                         System.out.println("P = Calculate Pip Scores");
                         System.out.println("D = Change Dice Rolls");
                     } else if (command.equals("D")) {
-                        doublingCube *= 2; // Double the value of the doubling cube
-                        System.out.println(player[current_player].getName() + " offers a double. The game is now worth " + doublingCube + " points.");
-
-                        // Prompt the opponent to accept (A) or decline (D)
-                        String opponentChoice;
-                        do {
-                            System.out.println(player[(current_player + 1) % 2].getName() + " Do you Accept (A) or Decline (D) " + player[current_player].getName() + " offer?:");
-                            opponentChoice = scanner.nextLine().toUpperCase();
-                        } while (!opponentChoice.equals("A") && !opponentChoice.equals("D"));
-
-                        if (opponentChoice.equals("A")) {
-                            // Accept the double
-                            System.out.println(player[(current_player + 1) % 2].getName() + " accepted the double. Match is now worth " + doublingCube);
+                        if (player[current_player].getdoubleOwnership() == true) {
+                            doublingCube *= 2; // Double the value of the doubling cube
+                            System.out.println(player[current_player].getName() + " offers a double. The game is now worth " + doublingCube + " points.");
+    
+                            // Prompt the opponent to accept (A) or decline (D)
+                            String opponentChoice;
+                            do {
+                                System.out.println(player[(current_player + 1) % 2].getName() + " Do you Accept (A) or Decline (D) " + player[current_player].getName() + " offer?:");
+                                opponentChoice = scanner.nextLine().toUpperCase();
+                            } while (!opponentChoice.equals("A") && !opponentChoice.equals("D"));
+    
+                            if (opponentChoice.equals("A")) {
+                                // Accept the double
+                                System.out.println(player[(current_player + 1) % 2].getName() + " accepted the double. Match is now worth " + doublingCube);
+                                // Passes ownership of double die
+                                player[(current_player + 1) % 2].setdoubleOwnership(true);
+                                player[current_player].setdoubleOwnership(false);
+                            } else {
+                                // Decline the double
+                                System.out.println(player[(current_player + 1) % 2].getName() + " declined the double. " + player[current_player].getName() + " wins " + doublingCube + " points.");
+                                matchNum++;
+                                player[current_player].updategameScore(doublingCube);
+                                doublingCube = 1; // Reset doubling cube for the next game
+                                // Sets ownership to true for new game
+                                player[(current_player + 1) % 2].setdoubleOwnership(true);
+                                player[current_player].setdoubleOwnership(true);
+                            }
                         } else {
-                            // Decline the double
-                            System.out.println(player[(current_player + 1) % 2].getName() + " declined the double. " + player[current_player].getName() + " wins " + doublingCube + " points.");
-                            matchNum++;
-                            player[current_player].updategameScore(doublingCube);
-                            doublingCube = 1; // Reset doubling cube for the next game
+                            System.out.println("You do not pocess ownership of the double die");
                         }
 
                     } else if (command.equals("Q")) {
