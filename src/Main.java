@@ -6,8 +6,8 @@
 
 import java.util.*;
 
-public class Main{
-
+public class Main {
+    
     private static int getUserMoveChoice(ArrayList<ArrayList<Integer>> moves) {
         Scanner scanner = new Scanner(System.in);
     
@@ -47,8 +47,11 @@ public class Main{
         Scanner scanner = new Scanner(System.in);
         String command;
 
+
+
         String[] playerNames = PlayerData.getNamesFromUser();
         int[] dice;
+        int doublingCube = 1;
         // initializing player data
         PlayerData[] player = new PlayerData[2];
 
@@ -56,7 +59,6 @@ public class Main{
         player[1] = new PlayerData(playerNames[1],"blue");
         System.out.println(player[0].getName() + " you are red. " + player[1].getName() + " you are blue");
 
-        // RESET BACK TO HERE
         int pointsToPlay = getUserInputMatches();
 
         int currentMatchNum = 0;
@@ -105,7 +107,7 @@ public class Main{
 
                 command = " ";
 
-                while (!command.equals("M")) {
+                while (!command.equals("M") && currentMatchNum == matchNum) {
                     firstLoop = 1;
 
                     System.out.println("Rolls: " + dice[0] + ", " + dice[1]);
@@ -240,21 +242,21 @@ public class Main{
                                     if (tray[((current_player + 1) % 2)].getNumCheckers() == 0 && bar.hasCheckersOfColor(player[((current_player + 1) % 2)].getPlayerColour())) {
                                         System.out.println(player[current_player].getName() + " Won this Match, Backgammon");
                                         matchNum++;
-                                        player[current_player].updategameScore(3);
+                                        player[current_player].updategameScore(3*doublingCube);
                                         System.out.println(player[current_player].getName() + " is on " + player[current_player].getgameScore() + " game points" );
                                         System.out.println(player[((current_player + 1) % 2)].getName() + " is on " + player[((current_player + 1 % 2))].getgameScore() + " game points" );
 
                                     } else if (tray[((current_player + 1) % 2)].getNumCheckers() == 0) {
                                         System.out.println(player[current_player].getName() + " Won this Match, gammon");
                                         matchNum++;
-                                        player[current_player].updategameScore(2);
+                                        player[current_player].updategameScore(2*doublingCube);
                                         System.out.println(player[current_player].getName() + " is on " + player[current_player].getgameScore() + " game points" );
                                         System.out.println(player[((current_player + 1) % 2)].getName() + " is on " + player[((current_player + 1) % 2)].getgameScore() + " game points" );
 
                                     } else {
                                         System.out.println(player[current_player].getName() + " Won this Match, Single");
                                         matchNum++;
-                                        player[current_player].updategameScore(1);
+                                        player[current_player].updategameScore(1*doublingCube);
                                         System.out.println(player[current_player].getName() + " is on " + player[current_player].getgameScore() + " game points" );
                                         System.out.println(player[((current_player + 1) % 2)].getName() + " is on " + player[((current_player + 1) % 2)].getgameScore() + " game points" );
 
@@ -287,10 +289,32 @@ public class Main{
                         System.out.println("M = Move");
                         System.out.println("P = Calculate Pip Scores");
                         System.out.println("D = Change Dice Rolls");
+                    } else if (command.equals("D")) {
+                        doublingCube *= 2; // Double the value of the doubling cube
+                        System.out.println(player[current_player].getName() + " offers a double. The game is now worth " + doublingCube + " points.");
+
+                        // Prompt the opponent to accept (A) or decline (D)
+                        String opponentChoice;
+                        do {
+                            System.out.println(player[(current_player + 1) % 2].getName() + " Do you Accept (A) or Decline (D) " + player[current_player].getName() + " offer?:");
+                            opponentChoice = scanner.nextLine().toUpperCase();
+                        } while (!opponentChoice.equals("A") && !opponentChoice.equals("D"));
+
+                        if (opponentChoice.equals("A")) {
+                            // Accept the double
+                            System.out.println(player[(current_player + 1) % 2].getName() + " accepted the double. Match is now worth " + doublingCube);
+                        } else {
+                            // Decline the double
+                            System.out.println(player[(current_player + 1) % 2].getName() + " declined the double. " + player[current_player].getName() + " wins " + doublingCube + " points.");
+                            matchNum++;
+                            player[current_player].updategameScore(doublingCube);
+                            doublingCube = 1; // Reset doubling cube for the next game
+                        }
+
                     } else if (command.equals("Q")) {
                         System.out.println("Quitting the game...");
                         System.exit(0);
-                    } else if (command.equals("D")) {
+                    } else if (command.equals("C")) {
                         // Allow the user to manually change the dice roll
                         System.out.println("Enter the new dice values (e.g., 3 4):");
                         int newDice1 = scanner.nextInt();
