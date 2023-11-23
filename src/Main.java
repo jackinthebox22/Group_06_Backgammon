@@ -100,6 +100,17 @@ public class Main {
                 Board.displayBoard(spikes, tray, player[current_player], bar);
                 System.out.println(player[current_player].getName() + ", it is your turn. You are " + player[current_player].getPlayerColour());
 
+                if (player[current_player].getdoubleOwnership() == true && player[(current_player + 1) % 2].getdoubleOwnership() == true) {
+                    System.out.println("Double Die Ownership: Both Players");
+                    System.out.println("Double Die Value: " + doublingCube);
+                } else if (player[current_player].getdoubleOwnership() == true) {
+                    System.out.println("Double Die Ownership: " + player[current_player].getName());
+                    System.out.println("Double Die Value: " + doublingCube);
+                } else {
+                    System.out.println("Double Die Ownership: " + player[(current_player + 1) % 2].getName());
+                    System.out.println("Double Die Value: " + doublingCube);
+                }
+
                 if (firstLoop == 1) {
                     dice = Roll.rollDice(player[current_player].getName());
                 }
