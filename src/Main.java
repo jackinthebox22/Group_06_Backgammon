@@ -177,7 +177,10 @@ public class Main {
                                         } else {
                                             bar.removeBlueChecker();
                                         }
-                                        if (dieUsed == 2) nextPlayerTurn = true;
+                                        if (dieUsed == 2) {
+                                            nextPlayerTurn = true;
+                                            Board.blotsInPlayerPath(barMoves.get(moveChoice - 2).get(2),player[(current_player + 1) % 2], bar);
+                                        }
                                         else {
                                             allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour(), tray, dieUsed);
 
@@ -226,6 +229,8 @@ public class Main {
 
                                             if (dieUsed == 2) {
                                                 nextPlayerTurn = true;
+                                                Board.blotsInPlayerPath(allMoves.get(moveChoice - 2).get(2),player[(current_player + 1) % 2], bar);
+
                                                 if (allowedTurns == 2)
                                                     Board.displayBoard(spikes, tray, player[current_player], bar);
                                             } else {
@@ -300,7 +305,7 @@ public class Main {
                                 System.out.println("Lists of Commands are:");
                                 System.out.println("M = Move");
                                 System.out.println("P = Calculate Pip Scores");
-                                System.out.println("C = Change Dice Rolls");
+                                System.out.println("R = Change Dice Rolls");
                                 System.out.println("D = Offer a Double");
                                 System.out.println("S = Score");
                                 System.out.println("B = Display Board");
@@ -341,15 +346,22 @@ public class Main {
                                 System.out.println("Quitting the game...");
                                 System.exit(0);
                             }
-                            case "C" -> {
+                            case "R" -> {
                                 // Allow the user to manually change the dice roll
-                                System.out.println("Enter the new dice values (e.g., 3 4):");
-                                int newDice1 = scanner.nextInt();
-                                int newDice2 = scanner.nextInt();
-                                dice[0] = newDice1;
-                                dice[1] = newDice2;
-                                scanner.nextLine();
-                                System.out.println("Dice values changed to: " + dice[0] + ", " + dice[1]);
+                                String newDice1 = "-1";
+                                String newDice2 = "-1";
+                                while(!String.valueOf(newDice1).matches("[1-6]") || !String.valueOf(newDice2).matches("[1-6]")) {
+                                    System.out.println("Enter the new dice values (e.g., 3 4):");
+
+                                    newDice1 = scanner.next();
+                                    newDice2 = scanner.next();
+                                    if (String.valueOf(newDice1).matches("[1-6]") && String.valueOf(newDice2).matches("[1-6]")){
+                                        dice[0] = Integer.parseInt(newDice1);
+                                        dice[1] = Integer.parseInt(newDice2);
+                                        scanner.nextLine();
+                                        System.out.println("Dice values changed to: " + dice[0] + ", " + dice[1]);
+                                    } else System.out.println("Invalid Command");
+                                }
                             }
                             case "S" -> {
                                 System.out.println("———————————————————————————");
