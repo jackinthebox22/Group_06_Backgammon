@@ -329,8 +329,9 @@ public class Main {
                                         player[current_player].setdoubleOwnership(false);
                                     } else {
                                         // Decline the double
+                                        doublingCube = (doublingCube/2);
                                         System.out.println(player[(current_player + 1) % 2].getName() + " declined the double. " + player[current_player].getName() + " wins " + doublingCube + " points.");
-                                        matchNum++;
+                                        matchNum++; 
                                         player[current_player].updategameScore(doublingCube);
                                         doublingCube = 1; // Reset doubling cube for the next game
                                         // Sets ownership to true for new game
