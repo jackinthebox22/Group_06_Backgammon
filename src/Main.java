@@ -337,6 +337,10 @@ public class Main {
                                         // Sets ownership to true for new game
                                         player[(current_player + 1) % 2].setdoubleOwnership(true);
                                         player[current_player].setdoubleOwnership(true);
+                                        if (player[current_player].getgameScore() >= pointsToPlay) {
+                                                System.out.println(player[current_player].getName() + " Won The whole Game with " + player[current_player].getgameScore() + " Points");
+                                                newRound = false;
+                                            }
                                     }
                                 } else {
                                     System.out.println("You do not possess ownership of the double die");
