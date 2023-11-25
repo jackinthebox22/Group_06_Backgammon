@@ -217,11 +217,12 @@ public class Board {
     }
     public static void blotsInPlayerPath(int spikeToCheck,PlayerData player, Bar bar){
         int[] indices = convertSpikeToIndices(spikeToCheck);
-        if(spikes[indices[0]][indices[1]] != null && spikes[indices[0]][indices[1]].getColour().equals(player.playerColour))
+        if(spikes[indices[0]][indices[1]] != null && spikes[indices[0]][indices[1]].getColour().equals(player.playerColour)) {
             spikes[indices[0]][indices[1]] = null;
 
-        if(player.playerColour.equals("red")) bar.addRedChecker();
-        else bar.addBlueChecker();
+            if (player.playerColour.equals("red")) bar.addRedChecker();
+            else bar.addBlueChecker();
+        }
     }
 
 }

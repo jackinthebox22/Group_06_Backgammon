@@ -145,7 +145,6 @@ public class Main {
                                     ArrayList<ArrayList<Integer>> barMoves = ValidMoves.barMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour());
                                     ArrayList<ArrayList<Integer>> allMoves = ValidMoves.allMoves(dice, player[current_player].playerDirection(), spikes, player[current_player].getPlayerColour(), tray, -1);
 
-
                                     if (player[current_player].getPlayerColour().equals("blue") && bar.getBlueCheckers() == 2) {
                                         ValidMoves.removeDie(barMoves, 2);
                                     } else if (player[current_player].getPlayerColour().equals("red") && bar.getRedCheckers() == 2) {
