@@ -400,6 +400,23 @@ public class Main {
                                     for (String fileCommand : commands) {
                                         fileCommand = fileCommand.toUpperCase();
                                         switch (fileCommand) {
+                                            case "R" -> {
+                                                // Allow the user to manually change the dice roll
+                                                String newDice1 = "-1";
+                                                String newDice2 = "-1";
+                                                while(!String.valueOf(newDice1).matches("[1-6]") || !String.valueOf(newDice2).matches("[1-6]")) {
+                                                    System.out.println("Enter the new dice values (e.g., 3 4):");
+                
+                                                    newDice1 = scanner.next();
+                                                    newDice2 = scanner.next();
+                                                    if (String.valueOf(newDice1).matches("[1-6]") && String.valueOf(newDice2).matches("[1-6]")){
+                                                        dice[0] = Integer.parseInt(newDice1);
+                                                        dice[1] = Integer.parseInt(newDice2);
+                                                        scanner.nextLine();
+                                                        System.out.println("Dice values changed to: " + dice[0] + ", " + dice[1]);
+                                                    } else System.out.println("Invalid Command");
+                                                }
+                                            }
                                             case "P" -> {
                                                 // Update and display both players' pip scores
                                                 player[0].calculatePipScore(spikes);
