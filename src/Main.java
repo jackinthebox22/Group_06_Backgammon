@@ -13,6 +13,9 @@ import java.io.IOException;
 
 public class Main {
 
+    private static final int DOUBLE_MOVE_ALLOWED_TURNS = 2;
+    private static final int MAX_CHECKERS = 15;
+
     private static List<String> readCommandsFromFile(String filePath) throws IOException {
         List<String> commands = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -147,7 +150,7 @@ public class Main {
                         int turnsUsed = 1;
                         if (dice[0] == dice[1]) {
                             System.out.println("You rolled a double. You get 4 moves.");
-                            allowedTurns = 2;
+                            allowedTurns = DOUBLE_MOVE_ALLOWED_TURNS;
                         }
                         System.out.println("Enter Command (H for List of Commands):");
                         command = scanner.nextLine().toUpperCase();
@@ -272,7 +275,7 @@ public class Main {
                                             }
                                         }
 
-                                        if (tray[current_player].getNumCheckers() == 15) {
+                                        if (tray[current_player].getNumCheckers() == MAX_CHECKERS) {
                                             Board.displayBoard(spikes, tray, player[current_player], bar);
 
                                             if (tray[((current_player + 1) % 2)].getNumCheckers() == 0 && bar.hasCheckersOfColor(player[((current_player + 1) % 2)].getPlayerColour())) {
