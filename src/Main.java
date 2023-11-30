@@ -6,7 +6,26 @@
 
 import java.util.*;
 
+// File reading
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+
 public class Main {
+
+    private static final int DOUBLE_MOVE_ALLOWED_TURNS = 2;
+    private static final int MAX_CHECKERS = 15;
+
+    private static List<String> readCommandsFromFile(String filePath) throws IOException {
+        List<String> commands = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String command;
+            while ((command = br.readLine()) != null) {
+                commands.add(command);
+            }
+        }
+        return commands;
+    }
     
     private static int getUserMoveChoice(ArrayList<ArrayList<Integer>> moves) {
         Scanner scanner = new Scanner(System.in);
@@ -46,6 +65,7 @@ public class Main {
         // Allows input from user
         Scanner scanner = new Scanner(System.in);
         String command;
+        List<String> commands = new ArrayList<>();
 
 
 
@@ -130,7 +150,7 @@ public class Main {
                         int turnsUsed = 1;
                         if (dice[0] == dice[1]) {
                             System.out.println("You rolled a double. You get 4 moves.");
-                            allowedTurns = 2;
+                            allowedTurns = DOUBLE_MOVE_ALLOWED_TURNS;
                         }
                         System.out.println("Enter Command (H for List of Commands):");
                         command = scanner.nextLine().toUpperCase();
@@ -255,7 +275,7 @@ public class Main {
                                             }
                                         }
 
-                                        if (tray[current_player].getNumCheckers() == 15) {
+                                        if (tray[current_player].getNumCheckers() == MAX_CHECKERS) {
                                             Board.displayBoard(spikes, tray, player[current_player], bar);
 
                                             if (tray[((current_player + 1) % 2)].getNumCheckers() == 0 && bar.hasCheckersOfColor(player[((current_player + 1) % 2)].getPlayerColour())) {
@@ -374,6 +394,67 @@ public class Main {
                                 System.out.println(player[current_player].getName() + ": is on " + player[current_player].getgameScore() + " points.");
                                 System.out.println(player[(current_player + 1) % 2].getName() + ": is on " + player[(current_player + 1) % 2].getgameScore() + " points.");
                                 System.out.println("———————————————————————————");
+                            }
+                            case "T" -> {
+                                try {
+                                    System.out.println("Enter the name of the commands file (including extension): ");
+                                    String fileName = scanner.nextLine();
+                                    commands = readCommandsFromFile(fileName); 
+                                    for (String fileCommand : commands) {
+                                        fileCommand = fileCommand.toUpperCase();
+                                        switch (fileCommand) {
+                                            case "R" -> {
+                                                // Allow the user to manually change the dice roll
+                                                String newDice1 = "-1";
+                                                String newDice2 = "-1";
+                                                while(!String.valueOf(newDice1).matches("[1-6]") || !String.valueOf(newDice2).matches("[1-6]")) {
+                                                    System.out.println("Enter the new dice values (e.g., 3 4):");
+                
+                                                    newDice1 = scanner.next();
+                                                    newDice2 = scanner.next();
+                                                    if (String.valueOf(newDice1).matches("[1-6]") && String.valueOf(newDice2).matches("[1-6]")){
+                                                        dice[0] = Integer.parseInt(newDice1);
+                                                        dice[1] = Integer.parseInt(newDice2);
+                                                        scanner.nextLine();
+                                                        System.out.println("Dice values changed to: " + dice[0] + ", " + dice[1]);
+                                                    } else System.out.println("Invalid Command");
+                                                }
+                                            }
+                                            case "P" -> {
+                                                // Update and display both players' pip scores
+                                                player[0].calculatePipScore(spikes);
+                                                player[1].calculatePipScore(spikes);
+                                                System.out.println(player[0].getName() + "'s Pip Score: " + player[0].getPipScore());
+                                                System.out.println(player[1].getName() + "'s Pip Score: " + player[1].getPipScore());
+                                            }
+                                            case "H" -> {
+                                                System.out.println("Lists of Commands are:");
+                                                System.out.println("M = Move");
+                                                System.out.println("P = Calculate Pip Scores");
+                                                System.out.println("R = Change Dice Rolls");
+                                                System.out.println("D = Offer a Double");
+                                                System.out.println("S = Score");
+                                                System.out.println("B = Display Board");
+                                            }
+                                            case "Q" -> {
+                                                System.out.println("Quitting the game...");
+                                                System.exit(0);
+                                            }
+                                            case "S" -> {
+                                                System.out.println("———————————————————————————");
+                                                System.out.println("Game Score:");
+                                                System.out.println("Playing to " + pointsToPlay);
+                                                System.out.println(player[current_player].getName() + ": is on " + player[current_player].getgameScore() + " points.");
+                                                System.out.println(player[(current_player + 1) % 2].getName() + ": is on " + player[(current_player + 1) % 2].getgameScore() + " points.");
+                                                System.out.println("———————————————————————————");
+                                            }
+                                            case "B" -> Board.displayBoard(spikes, tray, player[current_player], bar);
+                                            default -> System.out.println("Command entered is invalid");
+                                        }
+                                    }
+                                } catch (IOException e) {
+                                    System.out.println("Error reading commands from file: " + e.getMessage());
+                                }
                             }
                             case "B" -> Board.displayBoard(spikes, tray, player[current_player], bar);
                             default -> System.out.println("Command entered is invalid");
