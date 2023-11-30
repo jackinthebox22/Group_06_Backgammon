@@ -391,7 +391,7 @@ public class Main {
                 } else if(command.equals("N")){
                     validCommand = true;
                     newMatch = false;
-                    System.out.println("Thanks for playing!!!!!!!!!!!!!!!!");
+                    System.out.println("Thanks for playing!");
                 } else {
                     System.out.println("Invalid Command.");
                     command = scanner.nextLine().toUpperCase();

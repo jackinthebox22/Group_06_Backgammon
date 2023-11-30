@@ -9,7 +9,7 @@ public class Checker {
 
     public String getColour() {
         return colour;
-    } // if we have getColourCode, is this needed anymore?
+    }
 
     public String getColourCode(){
         String colourCode;
