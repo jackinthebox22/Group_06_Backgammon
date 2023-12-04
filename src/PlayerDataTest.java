@@ -1,7 +1,8 @@
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 class PlayerDataTest {
 
 	// 1
@@ -50,6 +51,4 @@ class PlayerDataTest {
 	    player.updategameScore(5);
 	    assertEquals(5, player.getgameScore());
 	}
-
-
 }

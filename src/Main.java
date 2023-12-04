@@ -18,8 +18,6 @@ public class Main {
 
     private static final int USING_TWO_DIE = 2;
 
-    private static final int USING_BIGGER_DIE = 1;
-    private static final int USING_SMALLER_DIE = 0;
     private static final int FROM_SPIKE = 1;
     private static final int TO_SPIKE = 2;
     private static final int DICE_USED = 3;

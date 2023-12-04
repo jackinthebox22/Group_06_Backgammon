@@ -121,13 +121,9 @@ public class Board {
         } else if (spikeNumber >= 13 && spikeNumber <= 24) {
             // Top row (spikes 13-24)
             indices[1] = spikeNumber - 13;
-        } else {
-            //System.out.println("Invalid spike number.");
         }
-
         // For debugging
         //System.out.println("Spike " + spikeNumber + " -> Row: " + indices[0] + ", Col: " + indices[1]);
-    
         return indices;
     }
 
@@ -138,10 +134,7 @@ public class Board {
         } else if (row == 0) {
             // Top row (spikes 13-24)
             return 13 + col;
-        } else {
-            //System.out.println("Invalid row number.");
-            return -1; // or handle the error accordingly
-        }
+        } else return -1;
     }
 
     public static void addCheckerToSpike(Checker[][] spikes, int toSpike, PlayerData currentPlayer, Bar bar) {
@@ -224,5 +217,4 @@ public class Board {
             else bar.addBlueChecker();
         }
     }
-
 }
