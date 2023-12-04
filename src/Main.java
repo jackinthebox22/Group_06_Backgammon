@@ -21,6 +21,7 @@ public class Main {
     private static final int FROM_SPIKE = 1;
     private static final int TO_SPIKE = 2;
     private static final int DICE_USED = 3;
+
     private static List<String> readCommandsFromFile(String filePath) throws IOException {
         List<String> commands = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -31,10 +32,10 @@ public class Main {
         }
         return commands;
     }
-    
+
     private static int getUserMoveChoice(ArrayList<ArrayList<Integer>> moves) {
         Scanner scanner = new Scanner(System.in);
-    
+
         int choice;
         do {
             System.out.println("Choose a move (1-" + moves.size() + "): ");
@@ -45,7 +46,7 @@ public class Main {
             choice = scanner.nextInt();
             scanner.nextLine(); // Consume the newline character
         } while (choice < 1 || choice > moves.size());
-    
+
         return choice;
     }
 
@@ -73,7 +74,6 @@ public class Main {
         List<String> commands = new ArrayList<>();
 
 
-
         String[] playerNames = PlayerData.getNamesFromUser();
         int[] dice;
         int doublingCube = 1;
@@ -81,19 +81,19 @@ public class Main {
         // initializing player data
         PlayerData[] player = new PlayerData[2];
 
-        player[0] = new PlayerData(playerNames[0],"red");
-        player[1] = new PlayerData(playerNames[1],"blue");
+        player[0] = new PlayerData(playerNames[0], "red");
+        player[1] = new PlayerData(playerNames[1], "blue");
         System.out.println(player[0].getName() + " you are red. " + player[1].getName() + " you are blue");
 
         boolean newMatch = true;
 
-        while(newMatch) {
+        while (newMatch) {
             boolean newRound = true;
 
             int roundNum = 0;
             int pointsToPlay = getUserInputMatches();
 
-            while(newRound){
+            while (newRound) {
                 int currentMatchNum = roundNum;
 
                 Checker[][] spikes = Board.Spikes();
@@ -214,7 +214,7 @@ public class Main {
 
                                         if (dieUsed == USING_TWO_DIE) {
                                             nextPlayerTurn = true;
-                                            Board.blotsInPlayerPath(barMoves.get(moveChoice - 2).get(TO_SPIKE),player[opposingPlayer], bar);
+                                            Board.blotsInPlayerPath(barMoves.get(moveChoice - 2).get(TO_SPIKE), player[opposingPlayer], bar);
                                         } else { // one die used
                                             // all moves need to be recalculated as the checkers have changed positions
                                             allMoves = ValidMoves.allMoves(dice, player[currentPlayer].playerDirection(), spikes, player[currentPlayer].getPlayerColour(), tray, dieUsed);
@@ -262,10 +262,10 @@ public class Main {
                                             if (toSpike == 0) {
                                                 tray[currentPlayer].addChecker();
                                             }
-
+                                            System.out.println(allMoves);
                                             if (dieUsed == USING_TWO_DIE) {
                                                 nextPlayerTurn = true;
-                                                Board.blotsInPlayerPath(allMoves.get(moveChoice - 2).get(TO_SPIKE),player[opposingPlayer], bar);
+                                                Board.blotsInPlayerPath(allMoves.get(moveChoice - 2).get(TO_SPIKE), player[opposingPlayer], bar);
 
                                                 if (allowedTurns == 2)
                                                     Board.displayBoard(spikes, tray, player[currentPlayer], bar);
@@ -368,7 +368,7 @@ public class Main {
                                         player[currentPlayer].setdoubleOwnership(false);
                                     } else {
                                         // Decline the double
-                                        doublingCube = (doublingCube/2);
+                                        doublingCube = (doublingCube / 2);
                                         System.out.println(player[opposingPlayer].getName() + " declined the double. " + player[currentPlayer].getName() + " wins " + doublingCube + " points.");
                                         roundNum++;
                                         player[currentPlayer].updategameScore(doublingCube);
@@ -377,9 +377,9 @@ public class Main {
                                         player[opposingPlayer].setdoubleOwnership(true);
                                         player[currentPlayer].setdoubleOwnership(true);
                                         if (player[currentPlayer].getgameScore() >= pointsToPlay) {
-                                                System.out.println(player[currentPlayer].getName() + " Won The whole Game with " + player[currentPlayer].getgameScore() + " Points");
-                                                newRound = false;
-                                            }
+                                            System.out.println(player[currentPlayer].getName() + " Won The whole Game with " + player[currentPlayer].getgameScore() + " Points");
+                                            newRound = false;
+                                        }
                                     }
                                 } else {
                                     System.out.println("You do not possess ownership of the double die");
@@ -393,12 +393,12 @@ public class Main {
                                 // Allow the user to manually change the dice roll
                                 String newDice1 = "-1";
                                 String newDice2 = "-1";
-                                while(!String.valueOf(newDice1).matches("[1-6]") || !String.valueOf(newDice2).matches("[1-6]")) {
+                                while (!String.valueOf(newDice1).matches("[1-6]") || !String.valueOf(newDice2).matches("[1-6]")) {
                                     System.out.println("Enter the new dice values (e.g., 3 4):");
 
                                     newDice1 = scanner.next();
                                     newDice2 = scanner.next();
-                                    if (String.valueOf(newDice1).matches("[1-6]") && String.valueOf(newDice2).matches("[1-6]")){
+                                    if (String.valueOf(newDice1).matches("[1-6]") && String.valueOf(newDice2).matches("[1-6]")) {
                                         dice[0] = Integer.parseInt(newDice1);
                                         dice[1] = Integer.parseInt(newDice2);
                                         scanner.nextLine();
@@ -418,7 +418,7 @@ public class Main {
                                 try {
                                     System.out.println("Enter the name of the commands file (including extension): ");
                                     String fileName = scanner.nextLine();
-                                    commands = readCommandsFromFile(fileName); 
+                                    commands = readCommandsFromFile(fileName);
                                     for (String fileCommand : commands) {
                                         fileCommand = fileCommand.toUpperCase();
                                         switch (fileCommand) {
@@ -426,12 +426,12 @@ public class Main {
                                                 // Allow the user to manually change the dice roll
                                                 String newDice1 = "-1";
                                                 String newDice2 = "-1";
-                                                while(!String.valueOf(newDice1).matches("[1-6]") || !String.valueOf(newDice2).matches("[1-6]")) {
+                                                while (!String.valueOf(newDice1).matches("[1-6]") || !String.valueOf(newDice2).matches("[1-6]")) {
                                                     System.out.println("Enter the new dice values (e.g., 3 4):");
-                
+
                                                     newDice1 = scanner.next();
                                                     newDice2 = scanner.next();
-                                                    if (String.valueOf(newDice1).matches("[1-6]") && String.valueOf(newDice2).matches("[1-6]")){
+                                                    if (String.valueOf(newDice1).matches("[1-6]") && String.valueOf(newDice2).matches("[1-6]")) {
                                                         dice[0] = Integer.parseInt(newDice1);
                                                         dice[1] = Integer.parseInt(newDice2);
                                                         scanner.nextLine();
@@ -485,10 +485,10 @@ public class Main {
             System.out.println("Yes (Y)  No (N)");
             command = scanner.nextLine().toUpperCase();
             boolean validCommand = false;
-            while(!validCommand){
-                if(command.equals("Y")) {
+            while (!validCommand) {
+                if (command.equals("Y")) {
                     validCommand = true;
-                } else if(command.equals("N")){
+                } else if (command.equals("N")) {
                     validCommand = true;
                     newMatch = false;
                     System.out.println("Thanks for playing!");

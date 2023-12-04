@@ -32,10 +32,14 @@ public class ValidMoves {
 
                         if (i < 2) moveTo = spikeNumber + dice[i]*direction;
 
-                        if (moveTo == 25) moveTo = 0;
+                        boolean bearingOff = false;
+                        if (moveTo == 25) {
+                            moveTo = 0;
+                            bearingOff = true;
+                        }
 
                         int[] indices = Board.convertSpikeToIndices(moveTo);
-                        if(moveTo >= 0 && moveTo <= 24 &&
+                        if(moveTo >= 0 && moveTo <= 25 &&
                                 (moveTo == 0 ||spikes[indices[0]][indices[1]] == null || spikes[indices[0]][indices[1]].getNumCheckers() == 1 || spikes[indices[0]][indices[1]].getColour().equals(colour))
                                     && !(moveTo == 0 && !bearOffAllowed(spikes,direction, colour, tray))) {
 
@@ -43,11 +47,12 @@ public class ValidMoves {
                             allmovesrow.add(spikeNumber);
                             allmovesrow.add(moveTo);
 
-                            if(biggerDie == smallerDie && Math.abs(spikeNumber - moveTo) != 2* biggerDie){
+                            if(biggerDie == smallerDie && ((Math.abs(spikeNumber - moveTo) != 2 * biggerDie && !bearingOff) || (bearingOff &&Math.abs(spikeNumber - 25) != 2 * biggerDie ))){
                                 allmovesrow.add(sameSizeDie++ % 2);
                             }
-                            else if(Math.abs(spikeNumber - moveTo) == biggerDie) allmovesrow.add(1); //well need the bigger die smaller die values for calculations later
-                            else if (Math.abs(spikeNumber - moveTo) == smallerDie) allmovesrow.add(0);
+
+                            else if(Math.abs(spikeNumber - moveTo) == biggerDie || (bearingOff && Math.abs(spikeNumber - 25) == biggerDie)) allmovesrow.add(1); //well need the bigger die smaller die values for calculations later
+                            else if (Math.abs(spikeNumber - moveTo) == smallerDie || (bearingOff && Math.abs(spikeNumber - 25) == smallerDie)) allmovesrow.add(0);
                             else allmovesrow.add(2);
 
                             allMoves.add(allmovesrow);
