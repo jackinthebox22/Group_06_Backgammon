@@ -160,8 +160,6 @@ public class BackGammon {
     }
     
     
-    
-    
 
     // ================================================================================================================
     //  Main
@@ -301,7 +299,6 @@ public class BackGammon {
                                         }
 
                                         ValidMoves.printMoves(barMoves);
-
                                         moveChoice = getUserMoveChoice(barMoves);
                                         ArrayList<Integer> selectedMove = barMoves.get(moveChoice - 1);
 
@@ -328,7 +325,6 @@ public class BackGammon {
                                             ValidMoves.removeDie(allMoves, USING_TWO_DIE);
                                             ValidMoves.removeDie(barMoves, dieUsed);
                                             ValidMoves.removeDie(barMoves, USING_TWO_DIE);
-
 
                                             if (movesMade == 1) { // removing the dice you just used
                                                 ValidMoves.removeDie(allMoves, ++dieUsed % 2);
@@ -399,30 +395,7 @@ public class BackGammon {
 
                                         if (tray[currentPlayer].getNumCheckers() == MAX_CHECKERS) {
                                             Board.displayBoard(spikes, tray, player[currentPlayer], bar);
-
-                                            if (tray[opposingPlayer].getNumCheckers() == 0 && bar.hasCheckersOfColor(player[opposingPlayer].getPlayerColour())) {
-                                                System.out.println(player[currentPlayer].getName() + " Won this Match, Backgammon");
-                                                roundNum++;
-                                                player[currentPlayer].updategameScore(3 * doublingCube);
-                                                System.out.println(player[currentPlayer].getName() + " is on " + player[currentPlayer].getgameScore() + " game points");
-                                                System.out.println(player[opposingPlayer].getName() + " is on " + player[opposingPlayer].getgameScore() + " game points");
-
-                                            } else if (tray[opposingPlayer].getNumCheckers() == 0) {
-                                                System.out.println(player[currentPlayer].getName() + " Won this Match, gammon");
-                                                roundNum++;
-                                                player[currentPlayer].updategameScore(2 * doublingCube);
-                                                System.out.println(player[currentPlayer].getName() + " is on " + player[currentPlayer].getgameScore() + " game points");
-                                                System.out.println(player[opposingPlayer].getName() + " is on " + player[opposingPlayer].getgameScore() + " game points");
-
-                                            } else {
-                                                System.out.println(player[currentPlayer].getName() + " Won this Match, Single");
-                                                roundNum++;
-                                                player[currentPlayer].updategameScore(doublingCube);
-                                                System.out.println(player[currentPlayer].getName() + " is on " + player[currentPlayer].getgameScore() + " game points");
-                                                System.out.println(player[opposingPlayer].getName() + " is on " + player[((currentPlayer + 1) % 2)].getgameScore() + " game points");
-
-                                            }
-
+                                            tray[currentPlayer].handleWinningMatch(player, currentPlayer, opposingPlayer, doublingCube, roundNum, bar);
 
                                             if (player[currentPlayer].getgameScore() >= pointsToPlay) {
                                                 System.out.println(player[currentPlayer].getName() + " Won The whole Game with " + player[currentPlayer].getgameScore() + " Points");
