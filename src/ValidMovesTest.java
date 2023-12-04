@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 class ValidMovesTest {
 
@@ -79,7 +81,9 @@ class ValidMovesTest {
 		assertEquals(1, arrayList.size());
 		}
 		@Test public void testPrintMoves(){
-			int[][] matrix = {{0, 2, 3, 1}, {1, 2, 4, 2}};
+			ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+			System.setOut(new PrintStream(outputStreamCaptor));
+			int[][] matrix = {{0, 2, 3, 1}};
 			ArrayList<ArrayList<Integer>> arrayList = new ArrayList<>();
 			for (int[] row : matrix) {
 				ArrayList<Integer> rowList = new ArrayList<>();
@@ -88,5 +92,8 @@ class ValidMovesTest {
 				}
 				arrayList.add(rowList);
 			}
+			ValidMoves.printMoves(arrayList);
+			assertEquals(1, arrayList.size());
+
 		}
 }
