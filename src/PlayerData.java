@@ -61,6 +61,10 @@ public class PlayerData {
         this.gameScore = gameScore + points;
     }
 
+    public void resetGameScore() {
+        this.gameScore = 0;
+    }
+
 
     public void updatePipScore(int newPipScore) {
         this.pipScore = newPipScore;

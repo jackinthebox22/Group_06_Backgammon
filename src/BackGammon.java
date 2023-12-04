@@ -172,6 +172,15 @@ public class BackGammon {
         List<String> commands = new ArrayList<>();
         boolean newMatch = true;
 
+        // Welcome Screen
+        System.out.println("=================================================");
+        System.out.println("|                  Backgammon                   |");
+        System.out.println("=================================================");
+        System.out.println("|   A classic two-player board game where you   |");
+        System.out.println("|   race your checkers around the board and     |");
+        System.out.println("|   bear them off before your opponent.         |");
+        System.out.println("=================================================\n");
+
         // Initalize values and Displays Player Colours
         String[] playerNames = PlayerData.getNamesFromUser();
         int[] dice;
@@ -506,6 +515,8 @@ public class BackGammon {
             }
             // Asks to player another match
             newMatch = playAnotherMatch(scanner, newMatch);
+            player[0].resetGameScore();
+            player[1].resetGameScore();
         }
     }
 }
