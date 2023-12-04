@@ -103,6 +103,37 @@ public class BackGammon {
         System.out.println("———————————————————————————");
     }
     
+    // Method
+    private static void manualChangeDiceRoll(Scanner scanner, int[] dice) {
+        String newDice1 = "-1";
+        String newDice2 = "-1";
+    
+        while (!String.valueOf(newDice1).matches("[1-6]") || !String.valueOf(newDice2).matches("[1-6]")) {
+            System.out.println("Enter the new dice values (e.g., 3 4):");
+    
+            newDice1 = scanner.next();
+            newDice2 = scanner.next();
+    
+            if (String.valueOf(newDice1).matches("[1-6]") && String.valueOf(newDice2).matches("[1-6]")) {
+                dice[0] = Integer.parseInt(newDice1);
+                dice[1] = Integer.parseInt(newDice2);
+                scanner.nextLine();
+                System.out.println("Dice values changed to: " + dice[0] + ", " + dice[1]);
+            } else {
+                System.out.println("Invalid Command");
+            }
+        }
+    }
+
+    // Method
+    private static void updateAndDisplayPipScores(PlayerData[] players, Checker[][] spikes) {
+        players[0].calculatePipScore(spikes);
+        players[1].calculatePipScore(spikes);
+    
+        System.out.println(players[0].getName() + "'s Pip Score: " + players[0].getPipScore());
+        System.out.println(players[1].getName() + "'s Pip Score: " + players[1].getPipScore());
+    }
+
 
 
     // ================================================================================================================
@@ -163,14 +194,14 @@ public class BackGammon {
                 System.out.println(player[currentPlayer].getName() + " goes first");
 
                 boolean useInitialDice = true;
-                int opposingPlayer = ++currentPlayer % 2;
+                int opposingPlayer = (currentPlayer + 1) % 2;
 
                 while (!command.equals("Q")) {// while loop containing main game loop
 
                     if (currentMatchNum != roundNum) {
                         break;
                     }
-
+                    System.out.println(player[currentPlayer].name);
                     Board.displayBoard(spikes, tray, player[currentPlayer], bar);
                     System.out.println(player[currentPlayer].getName() + ", it is your turn. You are " + player[currentPlayer].getPlayerColour());
 
@@ -373,13 +404,7 @@ public class BackGammon {
                                 currentPlayer = ++currentPlayer % 2;
 
                             }
-                            case "P" -> {
-                                // Update and display both players' pip scores
-                                player[0].calculatePipScore(spikes);
-                                player[1].calculatePipScore(spikes);
-                                System.out.println(player[0].getName() + "'s Pip Score: " + player[0].getPipScore());
-                                System.out.println(player[1].getName() + "'s Pip Score: " + player[1].getPipScore());
-                            }
+                            case "P" -> updateAndDisplayPipScores(player, spikes);
                             case "H" -> {
                                 System.out.println("Lists of Commands are:");
                                 System.out.println("M = Move");
@@ -430,23 +455,7 @@ public class BackGammon {
                                 System.out.println("Quitting the game...");
                                 System.exit(0);
                             }
-                            case "R" -> {
-                                // Allow the user to manually change the dice roll
-                                String newDice1 = "-1";
-                                String newDice2 = "-1";
-                                while(!String.valueOf(newDice1).matches("[1-6]") || !String.valueOf(newDice2).matches("[1-6]")) {
-                                    System.out.println("Enter the new dice values (e.g., 3 4):");
-
-                                    newDice1 = scanner.next();
-                                    newDice2 = scanner.next();
-                                    if (String.valueOf(newDice1).matches("[1-6]") && String.valueOf(newDice2).matches("[1-6]")){
-                                        dice[0] = Integer.parseInt(newDice1);
-                                        dice[1] = Integer.parseInt(newDice2);
-                                        scanner.nextLine();
-                                        System.out.println("Dice values changed to: " + dice[0] + ", " + dice[1]);
-                                    } else System.out.println("Invalid Command");
-                                }
-                            }
+                            case "R" -> manualChangeDiceRoll(scanner, dice);
                             case "S" -> displayGameScore(pointsToPlay, player);
                             case "T" -> {
                                 try {
@@ -456,23 +465,7 @@ public class BackGammon {
                                     for (String fileCommand : commands) {
                                         fileCommand = fileCommand.toUpperCase();
                                         switch (fileCommand) {
-                                            case "R" -> {
-                                                // Allow the user to manually change the dice roll
-                                                String newDice1 = "-1";
-                                                String newDice2 = "-1";
-                                                while(!String.valueOf(newDice1).matches("[1-6]") || !String.valueOf(newDice2).matches("[1-6]")) {
-                                                    System.out.println("Enter the new dice values (e.g., 3 4):");
-                
-                                                    newDice1 = scanner.next();
-                                                    newDice2 = scanner.next();
-                                                    if (String.valueOf(newDice1).matches("[1-6]") && String.valueOf(newDice2).matches("[1-6]")){
-                                                        dice[0] = Integer.parseInt(newDice1);
-                                                        dice[1] = Integer.parseInt(newDice2);
-                                                        scanner.nextLine();
-                                                        System.out.println("Dice values changed to: " + dice[0] + ", " + dice[1]);
-                                                    } else System.out.println("Invalid Command");
-                                                }
-                                            }
+                                            case "R" -> manualChangeDiceRoll(scanner, dice);
                                             case "P" -> {
                                                 // Update and display both players' pip scores
                                                 player[0].calculatePipScore(spikes);
