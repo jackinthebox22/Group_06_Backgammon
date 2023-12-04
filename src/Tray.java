@@ -7,12 +7,4 @@ public class Tray extends Checker{
         this.colour = colour;
     }
 
-    public void checkWinner() {
-
-        if (getNumCheckers() == 15) {
-            System.out.println("Congratulations! The tray with color " + colour + " has 15 checkers and is the winner!");
-            System.exit(0);
-        }
-    }
-
 }
