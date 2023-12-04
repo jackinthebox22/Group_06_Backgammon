@@ -134,7 +134,34 @@ public class BackGammon {
         System.out.println(players[1].getName() + "'s Pip Score: " + players[1].getPipScore());
     }
 
+    // Method
+    private static void displayListOfCommands() {
+        System.out.println("Lists of Commands are:");
+        System.out.println("M = Move");
+        System.out.println("P = Calculate Pip Scores");
+        System.out.println("R = Change Dice Rolls");
+        System.out.println("D = Offer a Double");
+        System.out.println("S = Score");
+        System.out.println("B = Display Board");
+    }
 
+    // Method
+    private static void displayDoubleDieOwnership(PlayerData[] player, int currentPlayer, int opposingPlayer, int doublingCube) {
+        if (player[currentPlayer].getdoubleOwnership() && player[opposingPlayer].getdoubleOwnership()) {
+            System.out.println("Double Die Ownership: Both Players");
+            System.out.println("Double Die Value: " + doublingCube);
+        } else if (player[currentPlayer].getdoubleOwnership()) {
+            System.out.println("Double Die Ownership: " + player[currentPlayer].getName());
+            System.out.println("Double Die Value: " + doublingCube);
+        } else {
+            System.out.println("Double Die Ownership: " + player[opposingPlayer].getName());
+            System.out.println("Double Die Value: " + doublingCube);
+        }
+    }
+    
+    
+    
+    
 
     // ================================================================================================================
     //  Main
@@ -145,103 +172,108 @@ public class BackGammon {
         Scanner scanner = new Scanner(System.in);
         String command;
         List<String> commands = new ArrayList<>();
+        boolean newMatch = true;
 
+        // Initalize values and Displays Player Colours
         String[] playerNames = PlayerData.getNamesFromUser();
         int[] dice;
         int doublingCube = 1;
-
-        // initializing player data
         PlayerData[] player = new PlayerData[2];
-
         player[0] = new PlayerData(playerNames[0],"red");
         player[1] = new PlayerData(playerNames[1],"blue");
         System.out.println(player[0].getName() + " you are red. " + player[1].getName() + " you are blue");
 
-        boolean newMatch = true;
-
+        // Loop For Full Match 
         while(newMatch) {
-            boolean newRound = true;
 
+            //Initalizes Values
+            boolean newRound = true;
             int roundNum = 0;
             int pointsToPlay = getUserInputMatches();
 
+            // Loop For Round
             while(newRound){
+
+                // Value Important for Breaking Loop
                 int currentMatchNum = roundNum;
 
+                // Initalize displayed values
                 Checker[][] spikes = Board.Spikes();
                 Tray[] tray = Board.Tray();
                 Bar bar = new Bar();
 
+                // Displays Match Number To User
                 System.out.println("Match: " + (roundNum + 1));
                 System.out.println("Press <Enter> to play:");
-                command = scanner.nextLine().toUpperCase(); // Initialize the variable with user input
+                command = scanner.nextLine().toUpperCase(); 
 
-                // rolling to start
+                // Initializes Dice and Current player
                 int currentPlayer = 0;
-
                 int[] dice1 = Roll.rollDice(player[0].getName());
                 int[] dice2 = Roll.rollDice(player[1].getName());
 
+                // Decide Which Die To use and who goes first
                 dice = dice1;
 
-                if (dice1[0] + dice1[1] < dice2[0] + dice2[1]) { // if dice2 is bigger that becomes the initial dice
+                if (dice1[0] + dice1[1] < dice2[0] + dice2[1]) { 
+                    // if dice2 is bigger that becomes the initial dice
                     currentPlayer = 1;
                     dice = dice2;
-                } else if (dice1[0] + dice1[1] == dice2[0] + dice2[1]) { // draw defaults in dice1 being chosen
+                } else if (dice1[0] + dice1[1] == dice2[0] + dice2[1]) { 
+                    // draw defaults in dice1 being chosen
                     System.out.print("It was a draw. ");
                 }
 
+                // Displays Result and Creates Opposing Player Value
                 System.out.println(player[currentPlayer].getName() + " goes first");
-
                 boolean useInitialDice = true;
                 int opposingPlayer = (currentPlayer + 1) % 2;
 
-                while (!command.equals("Q")) {// while loop containing main game loop
+                // Loop containing main game
+                while (!command.equals("Q")) {
 
+                    // Breaks loop and starts new match
                     if (currentMatchNum != roundNum) {
                         break;
                     }
+                    
+                    //Display nessesary information to current player
                     System.out.println(player[currentPlayer].name);
                     Board.displayBoard(spikes, tray, player[currentPlayer], bar);
                     System.out.println(player[currentPlayer].getName() + ", it is your turn. You are " + player[currentPlayer].getPlayerColour());
+                    displayDoubleDieOwnership(player, currentPlayer, opposingPlayer, doublingCube);
 
-                    if (player[currentPlayer].getdoubleOwnership() && player[opposingPlayer].getdoubleOwnership()) {
-                        System.out.println("Double Die Ownership: Both Players");
-                        System.out.println("Double Die Value: " + doublingCube);
-                    } else if (player[currentPlayer].getdoubleOwnership()) {
-                        System.out.println("Double Die Ownership: " + player[currentPlayer].getName());
-                        System.out.println("Double Die Value: " + doublingCube);
-                    } else {
-                        System.out.println("Double Die Ownership: " + player[opposingPlayer].getName());
-                        System.out.println("Double Die Value: " + doublingCube);
-                    }
-
+                    // For Double Die
                     if (!useInitialDice) {
                         dice = Roll.rollDice(player[currentPlayer].getName());
                     }
 
-
+                    // Command initlized to blank 
                     command = " ";
 
                     while (!command.equals("M") && currentMatchNum == roundNum) {
+
+                        // Initlized Values
                         useInitialDice = false;
-
                         System.out.println("Rolls: " + dice[0] + ", " + dice[1]);
-
                         int allowedTurns = 1;
                         int turnsUsed = 1;
 
+                        // Double Die Synario
                         if (dice[0] == dice[1]) {
                             System.out.println("You rolled a double. You get 4 moves.");
                             allowedTurns = DOUBLE_MOVE_ALLOWED_TURNS;
                         }
 
+                        // Prompt user to Enter Command
                         System.out.println("Enter Command (H for List of Commands):");
                         command = scanner.nextLine().toUpperCase();
                         int moveChoice;
 
                         switch (command) {
+                            // Move
                             case "M" -> {
+                                // Breaks When turn is done
                                 while (allowedTurns >= turnsUsed) {
                                     boolean nextPlayerTurn = false;
 
@@ -258,6 +290,7 @@ public class BackGammon {
                                         ValidMoves.removeDie(barMoves, USING_TWO_DIE);
                                     }
 
+                                    // Moves if player has checker on bar
                                     while (bar.hasCheckersOfColor(player[currentPlayer].getPlayerColour()) && !nextPlayerTurn) {
                                         System.out.println("You have Checker on Bar you must move");
 
@@ -314,8 +347,8 @@ public class BackGammon {
                                         movesMade++;
                                     }
 
+                                    // Moves if player has a checker on bar
                                     while (!nextPlayerTurn) { // once player has no moves on bar and still has moves left they can make normal moves on the board
-
 
                                         ValidMoves.printMoves(allMoves);
 
@@ -398,22 +431,21 @@ public class BackGammon {
                                         }
                                         movesMade++;
                                     }
+                                    // Increments Move
                                     turnsUsed++;
                                 }
+                                //Changes players turn
                                 opposingPlayer = currentPlayer;
                                 currentPlayer = ++currentPlayer % 2;
-
                             }
+                            
+                            // PipScore
                             case "P" -> updateAndDisplayPipScores(player, spikes);
-                            case "H" -> {
-                                System.out.println("Lists of Commands are:");
-                                System.out.println("M = Move");
-                                System.out.println("P = Calculate Pip Scores");
-                                System.out.println("R = Change Dice Rolls");
-                                System.out.println("D = Offer a Double");
-                                System.out.println("S = Score");
-                                System.out.println("B = Display Board");
-                            }
+
+                            // Help Commands
+                            case "H" -> displayListOfCommands();
+
+                            // Double Die 
                             case "D" -> {
                                 if (player[currentPlayer].getdoubleOwnership()) {
                                     doublingCube *= 2; // Double the value of the doubling cube
@@ -451,12 +483,23 @@ public class BackGammon {
                                     System.out.println("You do not possess ownership of the double die");
                                 }
                             }
+
+                            // Quit
                             case "Q" -> {
                                 System.out.println("Quitting the game...");
                                 System.exit(0);
                             }
+
+                            // Change Die
                             case "R" -> manualChangeDiceRoll(scanner, dice);
+
+                            // Display Score
                             case "S" -> displayGameScore(pointsToPlay, player);
+
+                            // Display Board
+                            case "B" -> Board.displayBoard(spikes, tray, player[currentPlayer], bar);
+
+                            // Test File
                             case "T" -> {
                                 try {
                                     System.out.println("Enter the name of the commands file (including extension): ");
@@ -466,22 +509,8 @@ public class BackGammon {
                                         fileCommand = fileCommand.toUpperCase();
                                         switch (fileCommand) {
                                             case "R" -> manualChangeDiceRoll(scanner, dice);
-                                            case "P" -> {
-                                                // Update and display both players' pip scores
-                                                player[0].calculatePipScore(spikes);
-                                                player[1].calculatePipScore(spikes);
-                                                System.out.println(player[0].getName() + "'s Pip Score: " + player[0].getPipScore());
-                                                System.out.println(player[1].getName() + "'s Pip Score: " + player[1].getPipScore());
-                                            }
-                                            case "H" -> {
-                                                System.out.println("Lists of Commands are:");
-                                                System.out.println("M = Move");
-                                                System.out.println("P = Calculate Pip Scores");
-                                                System.out.println("R = Change Dice Rolls");
-                                                System.out.println("D = Offer a Double");
-                                                System.out.println("S = Score");
-                                                System.out.println("B = Display Board");
-                                            }
+                                            case "P" -> updateAndDisplayPipScores(player, spikes);
+                                            case "H" -> displayListOfCommands();
                                             case "Q" -> {
                                                 System.out.println("Quitting the game...");
                                                 System.exit(0);
@@ -495,13 +524,14 @@ public class BackGammon {
                                     System.out.println("Error reading commands from file: " + e.getMessage());
                                 }
                             }
-                            case "B" -> Board.displayBoard(spikes, tray, player[currentPlayer], bar);
+
+                            // If Value isnt picked
                             default -> System.out.println("Command entered is invalid");
                         }
                     }
                 }
             }
-            // Asks to player another match?
+            // Asks to player another match
             newMatch = playAnotherMatch(scanner, newMatch);
         }
     }
