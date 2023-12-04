@@ -26,7 +26,7 @@ public class Board {
        spikes[1][4] = new Checker("blue", 3);  // Spike 8
        spikes[1][6] = new Checker("blue", 5);  // Spike 6
        spikes[1][11] = new Checker("red", 2);  // Spike 1
-        
+
 
         return spikes;
     }
