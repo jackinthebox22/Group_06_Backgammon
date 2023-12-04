@@ -122,7 +122,7 @@ public class Main {
                 System.out.println(player[currentPlayer].getName() + " goes first");
 
                 boolean useInitialDice = true;
-                int opposingPlayer = ++currentPlayer % 2;
+                int opposingPlayer = (currentPlayer + 1) % 2;
 
                 while (!command.equals("Q")) {// while loop containing main game loop
 

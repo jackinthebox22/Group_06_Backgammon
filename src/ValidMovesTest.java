@@ -1,7 +1,8 @@
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
-
+import java.util.List;
 import org.junit.jupiter.api.Test;
+import java.util.Arrays;
 
 class ValidMovesTest {
 
@@ -34,11 +35,58 @@ class ValidMovesTest {
 	    assertNotNull(moves, "Moves should not be null");
 	    assertFalse(moves.isEmpty(), "Moves should not be empty");
 	}
-	
+	@Test public void testCheckNumberExactlyOnceInColumn(){
+		int[][] matrix = {{0, 2, 3, 1}, {1, 2, 4, 2},{2 ,3 ,1 ,2}};
+		ArrayList<ArrayList<Integer>> arrayList = new ArrayList<>();
+		for (int[] row : matrix) {
+			ArrayList<Integer> rowList = new ArrayList<>();
+			for (int value : row) {
+				rowList.add(value);
+			}
+			arrayList.add(rowList);
+		}
+
+		assertTrue(ValidMoves.checkNumberExactlyOnceInColumn(arrayList,1,3));
+	}
 	//  printMoves, checkNumberInColumn, checkNumberExactlyOnceInColumn, 
 	// removeRowsWithConditions, extractValue, removeDie, and bearOffAllowed
 	// Difficult to test in isolation
 
-
-
+	@Test public void testRemoveRowsWithConditions(){
+		int[][] matrix = {{0, 2, 3, 1}, {1, 2, 4, 2},{2 ,1 ,1 ,2}};
+		ArrayList<ArrayList<Integer>> arrayList = new ArrayList<>();
+		for (int[] row : matrix) {
+			ArrayList<Integer> rowList = new ArrayList<>();
+			for (int value : row) {
+				rowList.add(value);
+			}
+			arrayList.add(rowList);
+		}
+		ValidMoves.removeRowsWithConditions(arrayList,2, 1, 1, 3);
+		assertEquals(2, arrayList.size());
+		}
+	@Test public void testRemoveDie(){
+		int[][] matrix = {{0, 2, 3, 1}, {1, 2, 4, 2},{2 ,1 ,1 ,2}};
+		ArrayList<ArrayList<Integer>> arrayList = new ArrayList<>();
+		for (int[] row : matrix) {
+			ArrayList<Integer> rowList = new ArrayList<>();
+			for (int value : row) {
+				rowList.add(value);
+			}
+			arrayList.add(rowList);
+		}
+		ValidMoves.removeDie(arrayList, 2);
+		assertEquals(1, arrayList.size());
+		}
+		@Test public void testPrintMoves(){
+			int[][] matrix = {{0, 2, 3, 1}, {1, 2, 4, 2}};
+			ArrayList<ArrayList<Integer>> arrayList = new ArrayList<>();
+			for (int[] row : matrix) {
+				ArrayList<Integer> rowList = new ArrayList<>();
+				for (int value : row) {
+					rowList.add(value);
+				}
+				arrayList.add(rowList);
+			}
+		}
 }
