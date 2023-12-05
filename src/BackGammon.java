@@ -158,8 +158,17 @@ public class BackGammon {
             System.out.println("Double Die Value: " + doublingCube);
         }
     }
-    
-    
+    public static void availableMovesForLastDice(ArrayList<ArrayList<Integer>> allMoves, ArrayList<ArrayList<Integer>> barMoves, int dieUsed) {
+        ValidMoves.removeDie(allMoves, dieUsed);
+        ValidMoves.removeDie(allMoves, USING_TWO_DIE);
+        ValidMoves.removeDie(barMoves, dieUsed);
+        ValidMoves.removeDie(barMoves, USING_TWO_DIE);
+
+    }
+
+//
+//                                                ValidMoves.removeDie(allMoves, dieUsed);
+//                                                ValidMoves.removeDie(allMoves, USING_TWO_DIE);
 
     // ================================================================================================================
     //  Main
@@ -181,7 +190,7 @@ public class BackGammon {
         System.out.println("|   bear them off before your opponent.         |");
         System.out.println("=================================================\n");
 
-        // Initalize values and Displays Player Colours
+        // Initialize values and Displays Player Colours
         String[] playerNames = PlayerData.getNamesFromUser();
         int[] dice;
         int doublingCube = 1;
@@ -233,7 +242,7 @@ public class BackGammon {
 
                 // Displays Result and Creates Opposing Player Value
                 System.out.println(player[currentPlayer].getName() + " goes first");
-                boolean useInitialDice = true;
+                boolean usingFirstRollDice = true;
                 int opposingPlayer = (currentPlayer + 1) % 2;
 
                 // Loop containing main game
@@ -244,29 +253,29 @@ public class BackGammon {
                         break;
                     }
                     
-                    //Display nessesary information to current player
+                    //Display necessary information to current player
                     System.out.println(player[currentPlayer].name);
                     Board.displayBoard(spikes, tray, player[currentPlayer], bar);
                     System.out.println(player[currentPlayer].getName() + ", it is your turn. You are " + player[currentPlayer].getPlayerColour());
                     displayDoubleDieOwnership(player, currentPlayer, opposingPlayer, doublingCube);
 
-                    // For Double Die
-                    if (!useInitialDice) {
+                    // Gets new roll if not the first go
+                    if (!usingFirstRollDice) {
                         dice = Roll.rollDice(player[currentPlayer].getName());
                     }
 
-                    // Command initlized to blank 
+                    // Command initialized to blank
                     command = " ";
 
                     while (!command.equals("M") && currentMatchNum == roundNum) {
 
-                        // Initlized Values
-                        useInitialDice = false;
+                        // Initialized Values
+                        usingFirstRollDice = false;
                         System.out.println("Rolls: " + dice[0] + ", " + dice[1]);
                         int allowedTurns = 1;
                         int turnsUsed = 1;
 
-                        // Double Die Synario
+                        // Double Die Scenario
                         if (dice[0] == dice[1]) {
                             System.out.println("You rolled a double. You get 4 moves.");
                             allowedTurns = DOUBLE_MOVE_ALLOWED_TURNS;
@@ -330,10 +339,7 @@ public class BackGammon {
                                             // all moves need to be recalculated as the checkers have changed positions
                                             allMoves = ValidMoves.allMoves(dice, player[currentPlayer].playerDirection(), spikes, player[currentPlayer].getPlayerColour(), tray, dieUsed);
 
-                                            ValidMoves.removeDie(allMoves, dieUsed);
-                                            ValidMoves.removeDie(allMoves, USING_TWO_DIE);
-                                            ValidMoves.removeDie(barMoves, dieUsed);
-                                            ValidMoves.removeDie(barMoves, USING_TWO_DIE);
+                                            availableMovesForLastDice(allMoves, barMoves,dieUsed);
 
                                             if (movesMade == 1) { // removing the dice you just used
                                                 ValidMoves.removeDie(allMoves, ++dieUsed % 2);
@@ -382,8 +388,7 @@ public class BackGammon {
                                             } else {
                                                 allMoves = ValidMoves.allMoves(dice, player[currentPlayer].playerDirection(), spikes, player[currentPlayer].getPlayerColour(), tray, dieUsed);
 
-                                                ValidMoves.removeDie(allMoves, dieUsed);
-                                                ValidMoves.removeDie(allMoves, USING_TWO_DIE);
+                                                availableMovesForLastDice(allMoves, barMoves, dieUsed);
 
                                                 if (movesMade == 1) { // removing the moves of the dice you just used
                                                     ValidMoves.removeDie(allMoves, ++dieUsed % 2);
@@ -402,10 +407,12 @@ public class BackGammon {
                                             }
                                         }
 
+                                        // Updates score when the match is won
                                         if (tray[currentPlayer].getNumCheckers() == MAX_CHECKERS) {
                                             Board.displayBoard(spikes, tray, player[currentPlayer], bar);
                                             tray[currentPlayer].handleWinningMatch(player, currentPlayer, opposingPlayer, doublingCube, roundNum, bar);
 
+                                            // Tracks when the game has been won
                                             if (player[currentPlayer].getgameScore() >= pointsToPlay) {
                                                 System.out.println(player[currentPlayer].getName() + " Won The whole Game with " + player[currentPlayer].getgameScore() + " Points");
                                                 newRound = false;
@@ -413,7 +420,6 @@ public class BackGammon {
                                         }
                                         movesMade++;
                                     }
-                                    // Increments Move
                                     turnsUsed++;
                                 }
                                 //Changes players turn
@@ -507,13 +513,13 @@ public class BackGammon {
                                 }
                             }
 
-                            // If Value isnt picked
+                            // If Value isn't picked
                             default -> System.out.println("Command entered is invalid");
                         }
                     }
                 }
             }
-            // Asks to player another match
+            // Ask player for another match
             newMatch = playAnotherMatch(scanner, newMatch);
             player[0].resetGameScore();
             player[1].resetGameScore();

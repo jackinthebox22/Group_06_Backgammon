@@ -34,8 +34,8 @@ public class Board {
     public static Tray[] Tray(){
         tray = new Tray[2];
 
-        tray[0] = new Tray("red", 10);
-        tray[1] = new Tray("blue", 10);
+        tray[0] = new Tray("red", 0);
+        tray[1] = new Tray("blue", 0);
 
         return tray;
     }
