@@ -166,9 +166,6 @@ public class BackGammon {
 
     }
 
-//
-//                                                ValidMoves.removeDie(allMoves, dieUsed);
-//                                                ValidMoves.removeDie(allMoves, USING_TWO_DIE);
 
     // ================================================================================================================
     //  Main
@@ -300,9 +297,9 @@ public class BackGammon {
                                     ArrayList<ArrayList<Integer>> allMoves = ValidMoves.allMoves(dice, player[currentPlayer].playerDirection(), spikes, player[currentPlayer].getPlayerColour(), tray, -1);
 
                                     // cant use both die at same time when more than 1 checker on the bar
-                                    if (player[currentPlayer].getPlayerColour().equals("blue") && bar.getBlueCheckers() == USING_TWO_DIE) {
+                                    if (player[currentPlayer].getPlayerColour().equals("blue") && bar.getBlueCheckers() >= USING_TWO_DIE) {
                                         ValidMoves.removeDie(barMoves, USING_TWO_DIE);
-                                    } else if (player[currentPlayer].getPlayerColour().equals("red") && bar.getRedCheckers() == USING_TWO_DIE) {
+                                    } else if (player[currentPlayer].getPlayerColour().equals("red") && bar.getRedCheckers() >= USING_TWO_DIE) {
                                         ValidMoves.removeDie(barMoves, USING_TWO_DIE);
                                     }
 
@@ -341,7 +338,7 @@ public class BackGammon {
 
                                             availableMovesForLastDice(allMoves, barMoves,dieUsed);
 
-                                            if (movesMade == 1) { // removing the dice you just used
+                                            if (movesMade == 1) { // if you've already made a move, remove all moves
                                                 ValidMoves.removeDie(allMoves, ++dieUsed % 2);
                                             }
                                         }
@@ -351,6 +348,7 @@ public class BackGammon {
                                             System.out.println("No more moves. Ending " + player[currentPlayer].getName() + "'s turn.");
                                         } else if (barMoves.isEmpty() && !allMoves.isEmpty()) {
                                             Board.displayBoard(spikes, tray, player[currentPlayer], bar);
+                                            movesMade++;
                                             break;
                                         } else {
                                             Board.displayBoard(spikes, tray, player[currentPlayer], bar);
@@ -390,7 +388,7 @@ public class BackGammon {
 
                                                 availableMovesForLastDice(allMoves, barMoves, dieUsed);
 
-                                                if (movesMade == 1) { // removing the moves of the dice you just used
+                                                if (movesMade == 1) { // if you've already made a move, remove all moves
                                                     ValidMoves.removeDie(allMoves, ++dieUsed % 2);
                                                 }
 
