@@ -254,7 +254,6 @@ public class BackGammon {
                     }
                     
                     //Display necessary information to current player
-                    System.out.println(player[currentPlayer].name);
                     Board.displayBoard(spikes, tray, player[currentPlayer], bar);
                     System.out.println(player[currentPlayer].getName() + ", it is your turn. You are " + player[currentPlayer].getPlayerColour());
                     displayDoubleDieOwnership(player, currentPlayer, opposingPlayer, doublingCube);
@@ -409,8 +408,9 @@ public class BackGammon {
 
                                         // Updates score when the match is won
                                         if (tray[currentPlayer].getNumCheckers() == MAX_CHECKERS) {
+                                            roundNum++;
                                             Board.displayBoard(spikes, tray, player[currentPlayer], bar);
-                                            tray[currentPlayer].handleWinningMatch(player, currentPlayer, opposingPlayer, doublingCube, roundNum, bar);
+                                            tray[currentPlayer].handleWinningMatch(player, currentPlayer, opposingPlayer, doublingCube, bar);
 
                                             // Tracks when the game has been won
                                             if (player[currentPlayer].getgameScore() >= pointsToPlay) {
