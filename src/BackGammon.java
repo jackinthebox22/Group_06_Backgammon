@@ -411,7 +411,8 @@ public class BackGammon {
                                         if (tray[currentPlayer].getNumCheckers() == MAX_CHECKERS) {
                                             roundNum++;
                                             Board.displayBoard(spikes, tray, player[currentPlayer], bar);
-                                            Tray.handleWinningMatch(tray[currentPlayer].getNumCheckers(), player, currentPlayer, opposingPlayer, doublingCube, bar);
+                                            int opositionCheckers = tray[opposingPlayer].getNumCheckers();
+                                            Tray.handleWinningMatch(tray[currentPlayer].getNumCheckers(), player, currentPlayer, opposingPlayer, doublingCube, bar, opositionCheckers);
 
                                             // Tracks when the game has been won
                                             if (player[currentPlayer].getgameScore() >= pointsToPlay) {
@@ -500,6 +501,8 @@ public class BackGammon {
                                             case "R" -> manualChangeDiceRoll(scanner, dice);
                                             case "P" -> updateAndDisplayPipScores(player, spikes);
                                             case "H" -> displayListOfCommands();
+                                            case "M" -> System.out.println("Command entered is not avaialble for test file command");
+                                            case "D" -> System.out.println("Command entered is not avaialble for test file command");
                                             case "Q" -> {
                                                 System.out.println("Quitting the game...");
                                                 System.exit(0);
