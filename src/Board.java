@@ -18,15 +18,15 @@ public class Board {
         }
 
        // Starting Spikes
-       spikes[0][0] = new Checker("blue", 5);  // Spike 13
-       spikes[0][4] = new Checker("red", 3);   // Spike 17
-       spikes[0][6] = new Checker("red", 5);   // Spike 19
-       spikes[0][11] = new Checker("blue", 2); // Spike 24
-       spikes[1][0] = new Checker("red", 5);   // Spike 12
-       spikes[1][4] = new Checker("blue", 3);  // Spike 8
-       spikes[1][6] = new Checker("blue", 5);  // Spike 6
-       spikes[1][11] = new Checker("red", 2);  // Spike 1
-
+//       spikes[0][0] = new Checker("blue", 5);  // Spike 13
+//       spikes[0][4] = new Checker("red", 3);   // Spike 17
+//       spikes[0][6] = new Checker("red", 5);   // Spike 19
+//       spikes[0][11] = new Checker("blue", 2); // Spike 24
+//       spikes[1][0] = new Checker("red", 5);   // Spike 12
+//       spikes[1][4] = new Checker("blue", 3);  // Spike 8
+//       spikes[1][6] = new Checker("blue", 5);  // Spike 6
+//       spikes[1][11] = new Checker("red", 2);  // Spike 1
+        spikes[1][6] = new Checker("blue", 1);  // Spike 6
 
         return spikes;
     }
@@ -34,8 +34,8 @@ public class Board {
     public static Tray[] Tray(){
         tray = new Tray[2];
 
-        tray[0] = new Tray("red", 0);
-        tray[1] = new Tray("blue", 0);
+        tray[0] = new Tray("red", 14);
+        tray[1] = new Tray("blue", 14);
 
         return tray;
     }
