@@ -1,4 +1,5 @@
 public class Checker {
+    
     private String colour;
     private int numCheckers;
 

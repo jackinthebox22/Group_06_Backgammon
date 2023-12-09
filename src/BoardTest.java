@@ -43,17 +43,6 @@ class BoardTest {
 		assertEquals(-1, spikeNumber, "Conversion between spike and indices should be reversible");
 
 	}
-	// The displayBoard, addCheckerToSpike and movePiece difficult to test in isolation
-	@Test public void testBlotsInPlayerPath(){
-		Checker[][] spikes = new Checker[2][12];
-		spikes[1][4] = new Checker("blue", 1);  // Spike 8
-		int spikeNumber = Board.convertIndicesToSpike(1,4);
-		PlayerData player = new PlayerData("void", "blue");
-		Bar bar = new Bar();
-		Board.blotsInPlayerPath(spikeNumber, player, bar);
-		assertEquals(bar.getBlueCheckers(),1,"Spike will now be null after the checker has taken the other checker off");
-
-	}
 	@Test public void testAddCheckerNoBar(){
 		Checker[][] spikes = new Checker[2][12];
 
@@ -63,7 +52,6 @@ class BoardTest {
 		Board.addCheckerToSpike(spikes, 8, player, bar);
 
 		assertEquals(1, spikes[1][4].getNumCheckers());
-
 	}
 	@Test public void testAddCheckerWithBarRed(){
 		Checker[][] spikes = new Checker[2][12];

@@ -411,7 +411,7 @@ public class BackGammon {
                                         if (tray[currentPlayer].getNumCheckers() == MAX_CHECKERS) {
                                             roundNum++;
                                             Board.displayBoard(spikes, tray, player[currentPlayer], bar);
-                                            tray[currentPlayer].handleWinningMatch(player, currentPlayer, opposingPlayer, doublingCube, bar);
+                                            Tray.handleWinningMatch(tray[currentPlayer].getNumCheckers(), player, currentPlayer, opposingPlayer, doublingCube, bar);
 
                                             // Tracks when the game has been won
                                             if (player[currentPlayer].getgameScore() >= pointsToPlay) {
