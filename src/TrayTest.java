@@ -12,10 +12,10 @@ public class TrayTest {
         player[0] = new PlayerData("void","red");
         player[1] = new PlayerData("void","blue");
         Bar bar = new Bar();
-        Tray.handleWinningMatch(0, player, 0, 1, 1, bar);
+        Tray.handleWinningMatch(0, player, 0, 1, 1, bar, 0);
         bar.addBlueChecker();
-        Tray.handleWinningMatch(0, player, 0, 1, 1, bar);
-        Tray.handleWinningMatch(1, player, 0, 1, 1, bar);
+        Tray.handleWinningMatch(0, player, 0, 1, 1, bar, 0);
+        Tray.handleWinningMatch(1, player, 0, 1, 1, bar, 0);
         assertEquals(1,1);
     }
 }
