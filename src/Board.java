@@ -1,3 +1,10 @@
+/**
+ * Game of Backgammon
+ * @version 1.00 9-12-23
+ * @author Jack Caldwell & Patrick Moxom
+ * GitHub Names: jackinthebox & Patrick-Moxom
+ */
+
 import java.util.Objects;
 
 public class Board {
@@ -9,7 +16,7 @@ public class Board {
         // Creates Starting Board
         spikes = new Checker[2][12];
 
-        
+
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 12; j++) {
                 spikes[i][j] = null;
@@ -47,7 +54,7 @@ public class Board {
         System.out.println(currentPlayer.getName() + "'s game Score: " + currentPlayer.getgameScore());
 
         // Print the current player's pip score
-        currentPlayer.calculatePipScore(spikes); 
+        currentPlayer.calculatePipScore(spikes);
         System.out.print(currentPlayer.getName() + "'s Pip Score: " + currentPlayer.getPipScore());
 
         // Print top of board (12-24)
@@ -55,12 +62,12 @@ public class Board {
         System.out.print("|");
 
         for (int i = 12; i <= 17; i++) {
-            System.out.printf(" %2s |", i + 1); 
+            System.out.printf(" %2s |", i + 1);
         }
         System.out.print("  |");
 
         for (int i = 18; i <= 23; i++) {
-            System.out.printf(" %2s |", i + 1); 
+            System.out.printf(" %2s |", i + 1);
         }
         System.out.print("\u001B[31m" + " red tray" + reset);
 
@@ -180,14 +187,14 @@ public class Board {
                         // Replace the existing checker and move the other to the bar
                         System.out.println("Move successful. Replaced checker at Spike " + toSpike + " and moved to the bar.");
                         spikes[toIndices[0]][toIndices[1]].changeColour();
-    
+
                         // Update the bar counts based on the color of the moved checker
                         if (pieceToMove.getColour().equals("red")) {
                             bar.addBlueChecker(); // add one checker of opposite color to the Bar
                         } else {
                             bar.addRedChecker(); // add one checker of opposite color to the Bar
                         }
-    
+
                         System.out.println("Moved checker of color " + pieceToMove.getColour() + " to the bar.");
                     } else {
                         // Increment the number of checkers in the destination spike
@@ -199,7 +206,7 @@ public class Board {
                     spikes[toIndices[0]][toIndices[1]] = new Checker(pieceToMove.getColour(), numCheckersToMove);
                 }
 
-            }   
+            }
 
         } else {
             System.out.println("Invalid move: Source spike is empty.");

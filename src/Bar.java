@@ -1,3 +1,10 @@
+/**
+ * Game of Backgammon
+ * @version 1.00 9-12-23
+ * @author Jack Caldwell & Patrick Moxom
+ * GitHub Names: jackinthebox & Patrick-Moxom
+ */
+
 public class Bar extends Checker {
     private int redCheckers;
     private int blueCheckers;

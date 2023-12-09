@@ -1,5 +1,12 @@
+/**
+ * Game of Backgammon
+ * @version 1.00 9-12-23
+ * @author Jack Caldwell & Patrick Moxom
+ * GitHub Names: jackinthebox & Patrick-Moxom
+ */
+
 public class Checker {
-    
+
     private String colour;
     private int numCheckers;
 
@@ -26,7 +33,7 @@ public class Checker {
     }
 
     public void addChecker() {
-        this.numCheckers++; 
+        this.numCheckers++;
     }
 
     public void setNumCheckers(int numCheckers) {

@@ -1,3 +1,10 @@
+/**
+ * Game of Backgammon
+ * @version 1.00 9-12-23
+ * @author Jack Caldwell & Patrick Moxom
+ * GitHub Names: jackinthebox & Patrick-Moxom
+ */
+
 import java.util.ArrayList;
 
 public class ValidMoves {
@@ -41,7 +48,7 @@ public class ValidMoves {
                         int[] indices = Board.convertSpikeToIndices(moveTo);
                         if(moveTo >= 0 && moveTo <= 25 &&
                                 (moveTo == 0 ||spikes[indices[0]][indices[1]] == null || spikes[indices[0]][indices[1]].getNumCheckers() == 1 || spikes[indices[0]][indices[1]].getColour().equals(colour))
-                                    && !(moveTo == 0 && !bearOffAllowed(spikes,direction, colour, tray))) {
+                                && !(moveTo == 0 && !bearOffAllowed(spikes,direction, colour, tray))) {
 
                             allmovesrow.add(allMovesIndex++);
                             allmovesrow.add(spikeNumber);
@@ -96,7 +103,7 @@ public class ValidMoves {
             else moveTo = -1;
 
             if(i < 2) moveTo = bar + dice[i] * direction;
-                // Valid moves only onto the opponent's home board
+            // Valid moves only onto the opponent's home board
             int[] indices = Board.convertSpikeToIndices(moveTo);
             if(moveTo >= 0 && moveTo <= 24 &&
                     (moveTo == 0 ||spikes[indices[0]][indices[1]] == null || spikes[indices[0]][indices[1]].getNumCheckers() == 1 || spikes[indices[0]][indices[1]].getColour().equals(colour))) {
@@ -117,7 +124,7 @@ public class ValidMoves {
         return barMoves;
     }
 
-    
+
 
     public static void printMoves(ArrayList<ArrayList<Integer>> moves) {
         int choiceNumber = 1;

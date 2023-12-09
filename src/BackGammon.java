@@ -2,6 +2,7 @@
  * Game of Backgammon
  * @version 1.00 9-12-23
  * @author Jack Caldwell & Patrick Moxom
+ * GitHub Names: jackinthebox & Patrick-Moxom
  */
 
 import java.util.*;
@@ -33,11 +34,11 @@ public class BackGammon {
         }
         return commands;
     }
-    
+
     // Method to register players move choice
-   public static int getUserMoveChoice(ArrayList<ArrayList<Integer>> moves) {
+    public static int getUserMoveChoice(ArrayList<ArrayList<Integer>> moves) {
         Scanner scanner = new Scanner(System.in);
-    
+
         int choice;
         do {
             System.out.println("Choose a move (1-" + moves.size() + "): ");
@@ -48,7 +49,7 @@ public class BackGammon {
             choice = scanner.nextInt();
             scanner.nextLine(); // Consume the newline character
         } while (choice < 1 || choice > moves.size());
-    
+
         return choice;
     }
 
@@ -74,7 +75,7 @@ public class BackGammon {
         System.out.println("Yes (Y)  No (N)");
         String command = scanner.nextLine().toUpperCase();
         boolean validCommand = false;
-    
+
         while (!validCommand) {
             if (command.equals("Y")) {
                 validCommand = true;
@@ -95,25 +96,25 @@ public class BackGammon {
         System.out.println("———————————————————————————");
         System.out.println("Game Score:");
         System.out.println("Playing to " + pointsToPlay);
-    
+
         for (PlayerData player : players) {
             System.out.println(player.getName() + ": is on " + player.getgameScore() + " points.");
         }
-    
+
         System.out.println("———————————————————————————");
     }
-    
+
     // Method
     public static void manualChangeDiceRoll(Scanner scanner, int[] dice) {
         String newDice1 = "-1";
         String newDice2 = "-1";
-    
+
         while (!String.valueOf(newDice1).matches("[1-6]") || !String.valueOf(newDice2).matches("[1-6]")) {
             System.out.println("Enter the new dice values (e.g., 3 4):");
-    
+
             newDice1 = scanner.next();
             newDice2 = scanner.next();
-    
+
             if (String.valueOf(newDice1).matches("[1-6]") && String.valueOf(newDice2).matches("[1-6]")) {
                 dice[0] = Integer.parseInt(newDice1);
                 dice[1] = Integer.parseInt(newDice2);
@@ -129,7 +130,7 @@ public class BackGammon {
     public static void updateAndDisplayPipScores(PlayerData[] players, Checker[][] spikes) {
         players[0].calculatePipScore(spikes);
         players[1].calculatePipScore(spikes);
-    
+
         System.out.println(players[0].getName() + "'s Pip Score: " + players[0].getPipScore());
         System.out.println(players[1].getName() + "'s Pip Score: " + players[1].getPipScore());
     }
@@ -165,7 +166,6 @@ public class BackGammon {
         ValidMoves.removeDie(barMoves, USING_TWO_DIE);
 
     }
-
 
     // ================================================================================================================
     //  Main
@@ -218,7 +218,7 @@ public class BackGammon {
                 // Displays Match Number To User
                 System.out.println("Match: " + (roundNum + 1));
                 System.out.println("Press <Enter> to play:");
-                command = scanner.nextLine().toUpperCase(); 
+                command = scanner.nextLine().toUpperCase();
 
                 // Initializes Dice and Current player
                 int currentPlayer = 0;
@@ -228,11 +228,11 @@ public class BackGammon {
                 // Decide Which Die To use and who goes first
                 dice = dice1;
 
-                if (dice1[0] + dice1[1] < dice2[0] + dice2[1]) { 
+                if (dice1[0] + dice1[1] < dice2[0] + dice2[1]) {
                     // if dice2 is bigger that becomes the initial dice
                     currentPlayer = 1;
                     dice = dice2;
-                } else if (dice1[0] + dice1[1] == dice2[0] + dice2[1]) { 
+                } else if (dice1[0] + dice1[1] == dice2[0] + dice2[1]) {
                     // draw defaults in dice1 being chosen
                     System.out.print("It was a draw. ");
                 }
@@ -249,7 +249,7 @@ public class BackGammon {
                     if (currentMatchNum != roundNum) {
                         break;
                     }
-                    
+
                     //Display necessary information to current player
                     Board.displayBoard(spikes, tray, player[currentPlayer], bar);
                     System.out.println(player[currentPlayer].getName() + ", it is your turn. You are " + player[currentPlayer].getPlayerColour());
@@ -347,6 +347,9 @@ public class BackGammon {
                                             System.out.println("No more moves. Ending " + player[currentPlayer].getName() + "'s turn.");
                                         } else if (barMoves.isEmpty() && !allMoves.isEmpty()) {
                                             Board.displayBoard(spikes, tray, player[currentPlayer], bar);
+                                            if (bar.hasCheckersOfColor(player[currentPlayer].getPlayerColour()))
+                                                nextPlayerTurn = true;
+
                                             movesMade++;
                                             break;
                                         } else {
@@ -425,7 +428,7 @@ public class BackGammon {
                                 opposingPlayer = currentPlayer;
                                 currentPlayer = ++currentPlayer % 2;
                             }
-                            
+
                             // PipScore
                             case "P" -> updateAndDisplayPipScores(player, spikes);
 
@@ -462,9 +465,9 @@ public class BackGammon {
                                         player[opposingPlayer].setdoubleOwnership(true);
                                         player[currentPlayer].setdoubleOwnership(true);
                                         if (player[currentPlayer].getgameScore() >= pointsToPlay) {
-                                                System.out.println(player[currentPlayer].getName() + " Won The whole Game with " + player[currentPlayer].getgameScore() + " Points");
-                                                newRound = false;
-                                            }
+                                            System.out.println(player[currentPlayer].getName() + " Won The whole Game with " + player[currentPlayer].getgameScore() + " Points");
+                                            newRound = false;
+                                        }
                                     }
                                 } else {
                                     System.out.println("You do not possess ownership of the double die");
@@ -491,7 +494,7 @@ public class BackGammon {
                                 try {
                                     System.out.println("Enter the name of the commands file (including extension): ");
                                     String fileName = scanner.nextLine();
-                                    commands = readCommandsFromFile(fileName); 
+                                    commands = readCommandsFromFile(fileName);
                                     for (String fileCommand : commands) {
                                         fileCommand = fileCommand.toUpperCase();
                                         switch (fileCommand) {

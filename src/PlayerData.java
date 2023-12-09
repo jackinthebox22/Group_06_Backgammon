@@ -1,3 +1,10 @@
+/**
+ * Game of Backgammon
+ * @version 1.00 9-12-23
+ * @author Jack Caldwell & Patrick Moxom
+ * GitHub Names: jackinthebox & Patrick-Moxom
+ */
+
 import java.util.Scanner;
 
 public class PlayerData {
@@ -72,7 +79,7 @@ public class PlayerData {
 
     public void calculatePipScore(Checker[][] spikes) {
         int pipScore = 0;
-    
+
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 12; j++) {
                 if (spikes[i][j] != null && spikes[i][j].getColour().equals(playerColour)) {
@@ -87,7 +94,7 @@ public class PlayerData {
                 }
             }
         }
-    
+
         this.pipScore = pipScore;
     }
 }

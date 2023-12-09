@@ -1,3 +1,10 @@
+/**
+ * Game of Backgammon
+ * @version 1.00 9-12-23
+ * @author Jack Caldwell & Patrick Moxom
+ * GitHub Names: jackinthebox & Patrick-Moxom
+ */
+
 import java.util.Random;
 
 public class Roll {
@@ -14,6 +21,6 @@ public class Roll {
         System.out.println(player_name + " rolled: <" + dice[0] + "> <" + dice[1] + ">");
         return dice;
     }
-    
+
 
 }

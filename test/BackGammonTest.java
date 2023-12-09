@@ -1,18 +1,13 @@
 import org.junit.jupiter.api.Test;
-import java.io.IOException;
+
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BackGammonTest {
     @Test
