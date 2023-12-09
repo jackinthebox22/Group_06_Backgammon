@@ -347,9 +347,6 @@ public class BackGammon {
                                             System.out.println("No more moves. Ending " + player[currentPlayer].getName() + "'s turn.");
                                         } else if (barMoves.isEmpty() && !allMoves.isEmpty()) {
                                             Board.displayBoard(spikes, tray, player[currentPlayer], bar);
-                                            if (bar.hasCheckersOfColor(player[currentPlayer].getPlayerColour()))
-                                                nextPlayerTurn = true;
-
                                             movesMade++;
                                             break;
                                         } else {
