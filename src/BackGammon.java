@@ -23,7 +23,7 @@ public class BackGammon {
     // Functions
     // ----------------------------------------------------------------------------------------------------------------
     // Method to read commands from a .txt file
-    private static List<String> readCommandsFromFile(String filePath) throws IOException {
+    public static List<String> readCommandsFromFile(String filePath) throws IOException {
         List<String> commands = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String command;
@@ -35,7 +35,7 @@ public class BackGammon {
     }
     
     // Method to register players move choice
-    private static int getUserMoveChoice(ArrayList<ArrayList<Integer>> moves) {
+   public static int getUserMoveChoice(ArrayList<ArrayList<Integer>> moves) {
         Scanner scanner = new Scanner(System.in);
     
         int choice;
@@ -53,7 +53,7 @@ public class BackGammon {
     }
 
     // Method to get the number of matches from the user
-    private static int getUserInputMatches() {
+    public static int getUserInputMatches() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter the number of points to play to: ");
@@ -69,7 +69,7 @@ public class BackGammon {
     }
 
     // Method to ask player if they want to play another match
-    private static boolean playAnotherMatch(Scanner scanner, boolean currentNewMatch) {
+    public static boolean playAnotherMatch(Scanner scanner, boolean currentNewMatch) {
         System.out.println("Would you like to play another match? ");
         System.out.println("Yes (Y)  No (N)");
         String command = scanner.nextLine().toUpperCase();
@@ -91,7 +91,7 @@ public class BackGammon {
     }
 
     // Method
-    private static void displayGameScore(int pointsToPlay, PlayerData[] players) {
+    public static void displayGameScore(int pointsToPlay, PlayerData[] players) {
         System.out.println("———————————————————————————");
         System.out.println("Game Score:");
         System.out.println("Playing to " + pointsToPlay);
@@ -104,7 +104,7 @@ public class BackGammon {
     }
     
     // Method
-    private static void manualChangeDiceRoll(Scanner scanner, int[] dice) {
+    public static void manualChangeDiceRoll(Scanner scanner, int[] dice) {
         String newDice1 = "-1";
         String newDice2 = "-1";
     
@@ -126,7 +126,7 @@ public class BackGammon {
     }
 
     // Method
-    private static void updateAndDisplayPipScores(PlayerData[] players, Checker[][] spikes) {
+    public static void updateAndDisplayPipScores(PlayerData[] players, Checker[][] spikes) {
         players[0].calculatePipScore(spikes);
         players[1].calculatePipScore(spikes);
     
@@ -135,7 +135,7 @@ public class BackGammon {
     }
 
     // Method
-    private static void displayListOfCommands() {
+    public static void displayListOfCommands() {
         System.out.println("Lists of Commands are:");
         System.out.println("M = Move");
         System.out.println("P = Calculate Pip Scores");
@@ -146,7 +146,7 @@ public class BackGammon {
     }
 
     // Method
-    private static void displayDoubleDieOwnership(PlayerData[] player, int currentPlayer, int opposingPlayer, int doublingCube) {
+    public static void displayDoubleDieOwnership(PlayerData[] player, int currentPlayer, int opposingPlayer, int doublingCube) {
         if (player[currentPlayer].getdoubleOwnership() && player[opposingPlayer].getdoubleOwnership()) {
             System.out.println("Double Die Ownership: Both Players");
             System.out.println("Double Die Value: " + doublingCube);

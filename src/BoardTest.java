@@ -50,9 +50,8 @@ class BoardTest {
 		int spikeNumber = Board.convertIndicesToSpike(1,4);
 		PlayerData player = new PlayerData("void", "blue");
 		Bar bar = new Bar();
-
 		Board.blotsInPlayerPath(spikeNumber, player, bar);
-		assertNull(spikes[1][4],"Spike will now be null after the checker has taken the other checker off");
+		assertEquals(bar.getBlueCheckers(),1,"Spike will now be null after the checker has taken the other checker off");
 
 	}
 	@Test public void testAddCheckerNoBar(){

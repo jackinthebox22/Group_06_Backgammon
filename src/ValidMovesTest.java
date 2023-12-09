@@ -96,4 +96,15 @@ class ValidMovesTest {
 			assertEquals(1, arrayList.size());
 
 		}
+		@Test public void onlyUseBiggerDie(){
+		Checker[][]	spikes = new Checker[2][12];
+			spikes[1][6] = new Checker("blue", 1);  // Spike 6
+			spikes[1][11] = new Checker("red", 1);  // Spike 1
+			spikes[1][7] = new Checker("blue", 1);  // Spike 5
+			int[] dice = {5, 2};
+			Tray[] tray = Board.Tray();
+			ArrayList<ArrayList<Integer>> allMoves=ValidMoves.allMoves(dice, -1, spikes, "blue", tray, -1);
+			assertEquals(2, allMoves.size());
+		}
+
 }
